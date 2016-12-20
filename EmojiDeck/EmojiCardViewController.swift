@@ -54,13 +54,13 @@ class EmojiCardViewController: UIViewController {
         self.view.addSubview(showStackButton)
         
         let _ = [
-            removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -38),
-            removeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            removeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -38)
             ].map{ $0.isActive = true }
         
