@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		D38358371E09D0E900337886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358361E09D0E900337886 /* AppDelegate.swift */; };
-		D38358391E09D0E900337886 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358381E09D0E900337886 /* ViewController.swift */; };
-		D383583C1E09D0E900337886 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D383583A1E09D0E900337886 /* Main.storyboard */; };
 		D383583E1E09D0E900337886 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D383583D1E09D0E900337886 /* Assets.xcassets */; };
 		D38358411E09D0E900337886 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D383583F1E09D0E900337886 /* LaunchScreen.storyboard */; };
+		D383584C1E09D20400337886 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D383584B1E09D20400337886 /* PlayingCard.swift */; };
+		D38358541E09D89400337886 /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358531E09D89400337886 /* Suit.swift */; };
+		D38358561E09DA5F00337886 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358551E09DA5F00337886 /* Number.swift */; };
+		D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358571E09DAA000337886 /* EmojiCardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D38358331E09D0E900337886 /* EmojiDeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiDeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D38358361E09D0E900337886 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D38358381E09D0E900337886 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D383583B1E09D0E900337886 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D383583D1E09D0E900337886 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D38358401E09D0E900337886 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D38358421E09D0E900337886 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D383584B1E09D20400337886 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
+		D38358531E09D89400337886 /* Suit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Suit.swift; path = ../Suit.swift; sourceTree = "<group>"; };
+		D38358551E09DA5F00337886 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
+		D38358571E09DAA000337886 /* EmojiCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,40 @@
 		D38358351E09D0E900337886 /* EmojiDeck */ = {
 			isa = PBXGroup;
 			children = (
+				D383584A1E09D1DE00337886 /* Models */,
+				D38358491E09D1D400337886 /* Controllers */,
+				D38358481E09D1CC00337886 /* UI */,
 				D38358361E09D0E900337886 /* AppDelegate.swift */,
-				D38358381E09D0E900337886 /* ViewController.swift */,
-				D383583A1E09D0E900337886 /* Main.storyboard */,
-				D383583D1E09D0E900337886 /* Assets.xcassets */,
-				D383583F1E09D0E900337886 /* LaunchScreen.storyboard */,
 				D38358421E09D0E900337886 /* Info.plist */,
 			);
 			path = EmojiDeck;
+			sourceTree = "<group>";
+		};
+		D38358481E09D1CC00337886 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D383583D1E09D0E900337886 /* Assets.xcassets */,
+				D383583F1E09D0E900337886 /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		D38358491E09D1D400337886 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D38358571E09DAA000337886 /* EmojiCardViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D383584A1E09D1DE00337886 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D38358531E09D89400337886 /* Suit.swift */,
+				D383584B1E09D20400337886 /* PlayingCard.swift */,
+				D38358551E09DA5F00337886 /* Number.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +155,6 @@
 			files = (
 				D38358411E09D0E900337886 /* LaunchScreen.storyboard in Resources */,
 				D383583E1E09D0E900337886 /* Assets.xcassets in Resources */,
-				D383583C1E09D0E900337886 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,7 +165,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D38358391E09D0E900337886 /* ViewController.swift in Sources */,
+				D38358561E09DA5F00337886 /* Number.swift in Sources */,
+				D383584C1E09D20400337886 /* PlayingCard.swift in Sources */,
+				D38358541E09D89400337886 /* Suit.swift in Sources */,
+				D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */,
 				D38358371E09D0E900337886 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,14 +176,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D383583A1E09D0E900337886 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D383583B1E09D0E900337886 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D383583F1E09D0E900337886 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
