@@ -10,10 +10,10 @@
 		D38358371E09D0E900337886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358361E09D0E900337886 /* AppDelegate.swift */; };
 		D383583E1E09D0E900337886 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D383583D1E09D0E900337886 /* Assets.xcassets */; };
 		D38358411E09D0E900337886 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D383583F1E09D0E900337886 /* LaunchScreen.storyboard */; };
-		D383584C1E09D20400337886 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D383584B1E09D20400337886 /* PlayingCard.swift */; };
 		D38358541E09D89400337886 /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358531E09D89400337886 /* Suit.swift */; };
 		D38358561E09DA5F00337886 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358551E09DA5F00337886 /* Number.swift */; };
 		D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358571E09DAA000337886 /* EmojiCardViewController.swift */; };
+		D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358591E09DF8D00337886 /* EmojiCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,10 +22,10 @@
 		D383583D1E09D0E900337886 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D38358401E09D0E900337886 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D38358421E09D0E900337886 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D383584B1E09D20400337886 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
 		D38358531E09D89400337886 /* Suit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Suit.swift; path = ../Suit.swift; sourceTree = "<group>"; };
 		D38358551E09DA5F00337886 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		D38358571E09DAA000337886 /* EmojiCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCardViewController.swift; sourceTree = "<group>"; };
+		D38358591E09DF8D00337886 /* EmojiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +88,8 @@
 			isa = PBXGroup;
 			children = (
 				D38358531E09D89400337886 /* Suit.swift */,
-				D383584B1E09D20400337886 /* PlayingCard.swift */,
 				D38358551E09DA5F00337886 /* Number.swift */,
+				D38358591E09DF8D00337886 /* EmojiCard.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -166,10 +166,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D38358561E09DA5F00337886 /* Number.swift in Sources */,
-				D383584C1E09D20400337886 /* PlayingCard.swift in Sources */,
 				D38358541E09D89400337886 /* Suit.swift in Sources */,
 				D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */,
 				D38358371E09D0E900337886 /* AppDelegate.swift in Sources */,
+				D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  PlayingCard.swift
+//  EmojiCard.swift
 //  EmojiDeck
 //
 //  Created by Marty Avedon on 12/20/16.
@@ -8,11 +8,16 @@
 
 import Foundation
 
-class PlayingCard {
+protocol PlayingCard {
+    var suit: Suit { get }
+    var num: Number { get }
+}
+
+class EmojiCard: PlayingCard {
     let suit: Suit
-    let num: Numbers
+    let num: Number
     
-    init(suit:Suit, num: Numbers) {
+    init(suit:Suit, num: Number) {
         self.suit = suit
         self.num = num
     }
