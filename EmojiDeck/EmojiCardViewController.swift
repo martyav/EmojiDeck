@@ -14,10 +14,17 @@ class EmojiCardViewController: UIViewController {
     var removeOneButton = UIButton(type: UIButtonType.system)
     var showStackButton = UIButton(type: UIButtonType.system)
     var removeAllButton = UIButton(type: UIButtonType.system)
-    //var card = EmojiCard?
+    var card: EmojiCard?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //card = EmojiCard()
+        
+        //card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //card.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        //self.view.addSubview(card)
         
         self.view.backgroundColor = .blue
         
