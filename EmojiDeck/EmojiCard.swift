@@ -26,8 +26,8 @@ class EmojiCard: UIView, PlayingCard {
  
         super.init(frame: frame)
         
-        self.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        self.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        //self.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        //self.heightAnchor.constraint(equalToConstant: 350).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
