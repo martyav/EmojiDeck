@@ -64,9 +64,10 @@ class Pips: UIView {
         
         for label in labelArr {
             addSubview(label!)
-            label?.font = UIFont.boldSystemFont(ofSize: 20)
+            label?.font = UIFont.boldSystemFont(ofSize: 40)
             label?.translatesAutoresizingMaskIntoConstraints = false
-            label?.text = " "
+            label?.text = "😎"
+            label?.isHidden = true
         }
         
         let _ = [
@@ -75,30 +76,30 @@ class Pips: UIView {
             topOneLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             topOneLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             // two
-            topTwoLabel.leadingAnchor.constraint(equalTo: topOneLabel.leadingAnchor, constant: 2),
+            topTwoLabel.leadingAnchor.constraint(equalTo: topOneLabel.trailingAnchor, constant: 2),
             topTwoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             // three
-            topThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.leadingAnchor, constant: 2),
+            topThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.trailingAnchor, constant: 2),
             topThreeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             // middle row
             // one
             midOneLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             midOneLabel.topAnchor.constraint(equalTo: topOneLabel.bottomAnchor, constant: 10),
             // two
-            midTwoLabel.leadingAnchor.constraint(equalTo: midOneLabel.leadingAnchor, constant: 2),
+            midTwoLabel.leadingAnchor.constraint(equalTo: midOneLabel.trailingAnchor, constant: 2),
             midTwoLabel.topAnchor.constraint(equalTo: topTwoLabel.bottomAnchor, constant: 10),
             // three
-            midThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.leadingAnchor, constant: 2),
+            midThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.trailingAnchor, constant: 2),
             midThreeLabel.topAnchor.constraint(equalTo: topThreeLabel.bottomAnchor, constant: 10),
             // bottom row
             // one
             bottomOneLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             bottomOneLabel.topAnchor.constraint(equalTo: midOneLabel.bottomAnchor, constant: 10),
             // two
-            bottomTwoLabel.leadingAnchor.constraint(equalTo: midOneLabel.leadingAnchor, constant: 2),
+            bottomTwoLabel.leadingAnchor.constraint(equalTo: midOneLabel.trailingAnchor, constant: 2),
             bottomTwoLabel.topAnchor.constraint(equalTo: midTwoLabel.bottomAnchor, constant: 10),
             // three
-            bottomThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.leadingAnchor, constant: 2),
+            bottomThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.trailingAnchor, constant: 2),
             bottomThreeLabel.topAnchor.constraint(equalTo: midThreeLabel.bottomAnchor, constant: 10),
             // tenSpot
             tenSpot.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -115,70 +116,70 @@ class Pips: UIView {
     func fillWith(_ emoji: Suit, _ number: Number) {
         switch number {
         case .one:
-            midTwoLabel?.text = emoji.symbol()
+            midTwoLabel?.isHidden = false
         case .two:
-            topOneLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .three:
-            topTwoLabel?.text = emoji.symbol()
-            midTwoLabel?.text = emoji.symbol()
-            bottomTwoLabel?.text = emoji.symbol()
+            topTwoLabel?.isHidden = false
+            midTwoLabel?.isHidden = false
+            bottomTwoLabel?.isHidden = false
         case .four:
-            topOneLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .five:
-            topOneLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            midTwoLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            midTwoLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .six:
-            topOneLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            midOneLabel?.text = emoji.symbol()
-            midThreeLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            midOneLabel?.isHidden = false
+            midThreeLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .seven:
-            topOneLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            midOneLabel?.text = emoji.symbol()
-            midThreeLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
-            tenSpot?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            midOneLabel?.isHidden = false
+            midTwoLabel?.isHidden = false
+            midThreeLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .eight:
-            topOneLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            midOneLabel?.text = emoji.symbol()
-            midTwoLabel?.text = emoji.symbol()
-            midThreeLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomTwoLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            midOneLabel?.isHidden = false
+            midTwoLabel?.isHidden = false
+            midThreeLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomTwoLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .nine:
-            topOneLabel?.text = emoji.symbol()
-            topTwoLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            midOneLabel?.text = emoji.symbol()
-            midTwoLabel?.text = emoji.symbol()
-            midThreeLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomTwoLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topTwoLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            midOneLabel?.isHidden = false
+            midTwoLabel?.isHidden = false
+            midThreeLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomTwoLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
         case .ten:
-            topOneLabel?.text = emoji.symbol()
-            topTwoLabel?.text = emoji.symbol()
-            topThreeLabel?.text = emoji.symbol()
-            midOneLabel?.text = emoji.symbol()
-            midTwoLabel?.text = emoji.symbol()
-            midThreeLabel?.text = emoji.symbol()
-            bottomOneLabel?.text = emoji.symbol()
-            bottomTwoLabel?.text = emoji.symbol()
-            bottomThreeLabel?.text = emoji.symbol()
-            tenSpot?.text = emoji.symbol()
+            topOneLabel?.isHidden = false
+            topTwoLabel?.isHidden = false
+            topThreeLabel?.isHidden = false
+            midOneLabel?.isHidden = false
+            midTwoLabel?.isHidden = false
+            midThreeLabel?.isHidden = false
+            bottomOneLabel?.isHidden = false
+            bottomTwoLabel?.isHidden = false
+            bottomThreeLabel?.isHidden = false
+            tenSpot?.isHidden = false
         }
     }
 }

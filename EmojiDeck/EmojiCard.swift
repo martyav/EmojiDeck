@@ -21,7 +21,7 @@ class EmojiCard: UIView, PlayingCard {
     var bottomSuitLabel: UILabel!
     
     let suit: Suit = .Ppl
-    let num: Number = .ten
+    let num: Number = .seven
     
     override init(frame: CGRect) {
  
