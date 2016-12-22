@@ -32,6 +32,10 @@ class EmojiCard: UIView, PlayingCard {
         super.init(coder: aDecoder)
     }
     
+    func createLabels() {
+        
+    }
+    
     func style() {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -43,31 +47,58 @@ class EmojiCard: UIView, PlayingCard {
         widthAnchor.constraint(equalToConstant: 250).isActive = true
         heightAnchor.constraint(equalToConstant: 350).isActive = true
         
-//        addSubview(topNumberLabel)
-//        addSubview(bottomNumberLabel)
-//        addSubview(topSuitLabel)
-//        addSubview(bottomSuitLabel)
-//        
-//        let _ = [
-//            topNumberLabel,
-//            topSuitLabel,
-//            bottomNumberLabel,
-//            bottomSuitLabel
-//            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        topNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        topSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        bottomNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        bottomSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        
+        topNumberLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        topSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        bottomNumberLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        bottomSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        addSubview(topNumberLabel)
+        addSubview(topSuitLabel)
+        addSubview(bottomNumberLabel)
+        addSubview(bottomSuitLabel)
+        
+        let _ = [topNumberLabel,
+                 topSuitLabel,
+                 bottomNumberLabel,
+                 bottomSuitLabel].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         topNumberLabel?.text = num.cornerLabel()
-        bottomNumberLabel?.text = num.cornerLabel()
         topSuitLabel?.text = suit.symbol()
-        bottomNumberLabel?.text = suit.symbol()
+        bottomNumberLabel?.text = num.cornerLabel()
+        bottomSuitLabel?.text = suit.symbol()
         
-        topSuitLabel?.textColor = suit.color()
         topNumberLabel?.textColor = suit.color()
-        bottomSuitLabel?.textColor = suit.color()
+        topSuitLabel?.textColor = suit.color()
         bottomNumberLabel?.textColor = suit.color()
+        bottomSuitLabel?.textColor = suit.color()
         
         // this bit turns the suit & num upside down -- the units are in radians
         bottomNumberLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
         bottomSuitLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
+        
+        let _ = [
+            topNumberLabel,
+            topSuitLabel,
+            bottomNumberLabel,
+            bottomSuitLabel
+            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        
+        let _ = [
+            topNumberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            topNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            topSuitLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            topSuitLabel.bottomAnchor.constraint(equalTo: topNumberLabel.bottomAnchor, constant: 28),
+            bottomNumberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            bottomNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+            bottomSuitLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            bottomSuitLabel.bottomAnchor.constraint(equalTo: bottomNumberLabel.topAnchor, constant: -8)
+            ].map{ $0.isActive = true }
+        
     }
     
  }
