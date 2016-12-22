@@ -16,6 +16,7 @@
 		D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358591E09DF8D00337886 /* EmojiCard.swift */; };
 		D3C93DFA1E0C5C1600D5F5F8 /* Pips.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */; };
 		D3C93DFC1E0C7FAD00D5F5F8 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DFB1E0C7FAD00D5F5F8 /* CardStack.swift */; };
+		D3C93DFE1E0C918B00D5F5F8 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		D38358591E09DF8D00337886 /* EmojiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCard.swift; sourceTree = "<group>"; };
 		D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pips.swift; sourceTree = "<group>"; };
 		D3C93DFB1E0C7FAD00D5F5F8 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				D38358571E09DAA000337886 /* EmojiCardViewController.swift */,
+				D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				D38358371E09D0E900337886 /* AppDelegate.swift in Sources */,
 				D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */,
 				D3C93DFA1E0C5C1600D5F5F8 /* Pips.swift in Sources */,
+				D3C93DFE1E0C918B00D5F5F8 /* StackTableViewController.swift in Sources */,
 				D3C93DFC1E0C7FAD00D5F5F8 /* CardStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

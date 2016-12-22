@@ -17,9 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let rootVC = EmojiCardViewController()
+        let navController = UINavigationController(rootViewController: rootVC)
         
-        self.window?.rootViewController = rootVC
+        self.window?.rootViewController = navController
         self.window?.makeKeyAndVisible()
+
         
         return true
     }

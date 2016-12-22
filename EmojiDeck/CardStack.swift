@@ -11,7 +11,7 @@ import UIKit
 class CardStack {
     static let shared = CardStack()
     
-    var store: [UIViewController] = []
+    var store: [EmojiCard] = []
     
     // this class exists solely for storing info in an array.
 }

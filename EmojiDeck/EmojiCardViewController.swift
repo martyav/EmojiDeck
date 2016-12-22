@@ -91,16 +91,27 @@ class EmojiCardViewController: UIViewController {
         newVC.view.backgroundColor = card.suit.color()
         
         // present it modally
-        self.present(newVC, animated: true, completion: nil)
+        //self.present(newVC, animated: true, completion: nil)
+        
+        // let nav handle it
+        if let navVC = self.navigationController {
+            print("nav found")
+            navVC.pushViewController(newVC, animated: true)
+        }
         
         // add to array
-        CardStack.shared.store.append(self)
+        CardStack.shared.store.append(self.card)
 
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
-        CardStack.shared.store.removeLast()
+        let currentIndex = CardStack.shared.store.count - 1
+        let cardToRemove = Int(arc4random_uniform(UInt32(CardStack.shared.store.count)))
+        guard cardToRemove != currentIndex else {
+            return didPressRemoveOneButton(sender: removeOneButton)
+        }
+        CardStack.shared.store.remove(at: cardToRemove)
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
