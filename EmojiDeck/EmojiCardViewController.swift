@@ -18,7 +18,7 @@ class EmojiCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .blue
+        self.view.backgroundColor = .black
         
         card.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(card)
@@ -70,6 +70,10 @@ class EmojiCardViewController: UIViewController {
             ].map{ $0.isActive = true }
         
         self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
+        self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
+        self.removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
+        self.showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,19 +83,34 @@ class EmojiCardViewController: UIViewController {
     }
     
     func didPressDrawOneButton(sender: UIButton) {
-        print("Did press button.")
+        print("Did press draw button.")
         
         // create a destination vc
         
         let newVC = EmojiCardViewController()
-        newVC.view.backgroundColor = .green
-        
-        // move to our destination vc
+        newVC.view.backgroundColor = card.suit.color()
         
         // present it modally
-        //self.present(greenVC, animated: true, completion: nil)
+        self.present(newVC, animated: true, completion: nil)
         
-        // have the nav manage it
+        // add to array
+        CardStack.shared.store.append(self)
+
+    }
+    
+    func didPressRemoveOneButton(sender: UIButton) {
+        print("did press remove one")
+        CardStack.shared.store.removeLast()
+    }
+    
+    func didPressRemoveAllButton(sender: UIButton) {
+        print("did press remove all")
+        CardStack.shared.store = []
+    }
+    
+    func didPressShowStackButton(sender: UIButton) {
+        print("did press show stack")
+        // make a tableview
     }
     
     override func viewWillAppear(_ animated: Bool) {
