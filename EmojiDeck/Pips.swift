@@ -31,7 +31,7 @@ class Pips: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.borderWidth = 2
-        layer.borderColor = UIColor.black.cgColor
+        layer.cornerRadius = 5
         
         backgroundColor = .white
         
@@ -66,7 +66,7 @@ class Pips: UIView {
             addSubview(label!)
             label?.font = UIFont.boldSystemFont(ofSize: 40)
             label?.translatesAutoresizingMaskIntoConstraints = false
-            label?.text = "😎"
+            label?.text = ""
             label?.isHidden = true
         }
         
@@ -74,13 +74,13 @@ class Pips: UIView {
             // top row
             // one
             topOneLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            topOneLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            topOneLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
             // two
             topTwoLabel.leadingAnchor.constraint(equalTo: topOneLabel.trailingAnchor, constant: 2),
-            topTwoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            topTwoLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
             // three
             topThreeLabel.leadingAnchor.constraint(equalTo: topTwoLabel.trailingAnchor, constant: 2),
-            topThreeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            topThreeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 30),
             // middle row
             // one
             midOneLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
@@ -114,6 +114,26 @@ class Pips: UIView {
     }
     
     func fillWith(_ emoji: Suit, _ number: Number) {
+        
+        let emojiArray = [
+            topOneLabel,
+            topTwoLabel,
+            topThreeLabel,
+            midOneLabel,
+            midTwoLabel,
+            midThreeLabel,
+            bottomOneLabel,
+            bottomTwoLabel,
+            bottomThreeLabel,
+            tenSpot
+        ]
+        
+        for label in emojiArray {
+            label?.text = emoji.symbol()
+        }
+        
+        layer.borderColor = emoji.color().cgColor
+        
         switch number {
         case .one:
             midTwoLabel?.isHidden = false
@@ -152,9 +172,9 @@ class Pips: UIView {
             bottomThreeLabel?.isHidden = false
         case .eight:
             topOneLabel?.isHidden = false
+            topTwoLabel?.isHidden = false
             topThreeLabel?.isHidden = false
             midOneLabel?.isHidden = false
-            midTwoLabel?.isHidden = false
             midThreeLabel?.isHidden = false
             bottomOneLabel?.isHidden = false
             bottomTwoLabel?.isHidden = false

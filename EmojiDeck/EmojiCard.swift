@@ -20,8 +20,8 @@ class EmojiCard: UIView, PlayingCard {
     var bottomNumberLabel: UILabel!
     var bottomSuitLabel: UILabel!
     
-    let suit: Suit = .Ppl
-    let num: Number = .seven
+    let suit = Suit(rawValue: Int(arc4random_uniform(3)))!
+    let num = Number(rawValue: Int(arc4random_uniform(9) + 1))!
     
     override init(frame: CGRect) {
  
