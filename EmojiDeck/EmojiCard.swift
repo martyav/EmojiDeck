@@ -16,27 +16,17 @@ protocol PlayingCard {
 class EmojiCard: UIView, PlayingCard {
     var topNumberLabel: UILabel!
     var topSuitLabel: UILabel!
+    var middleImage: Pips!
     var bottomNumberLabel: UILabel!
     var bottomSuitLabel: UILabel!
     
     let suit: Suit = .Ppl
-    let num: Number = .one
+    let num: Number = .ten
     
     override init(frame: CGRect) {
  
         super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
         
-        super.init(coder: aDecoder)
-    }
-    
-    func createLabels() {
-        
-    }
-    
-    func style() {
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.borderWidth = 2
@@ -57,15 +47,23 @@ class EmojiCard: UIView, PlayingCard {
         bottomNumberLabel.font = UIFont.boldSystemFont(ofSize: 20)
         bottomSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
+        middleImage = Pips(frame: CGRect(x: 0, y: 0, width: 150, height: 250))
+        
         addSubview(topNumberLabel)
         addSubview(topSuitLabel)
+        
+        addSubview(middleImage)
+        
         addSubview(bottomNumberLabel)
         addSubview(bottomSuitLabel)
         
-        let _ = [topNumberLabel,
-                 topSuitLabel,
-                 bottomNumberLabel,
-                 bottomSuitLabel].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        let _ = [
+            topNumberLabel,
+            topSuitLabel,
+            bottomNumberLabel,
+            bottomSuitLabel,
+            middleImage
+        ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         topNumberLabel?.text = num.cornerLabel()
         topSuitLabel?.text = suit.symbol()
@@ -85,7 +83,8 @@ class EmojiCard: UIView, PlayingCard {
             topNumberLabel,
             topSuitLabel,
             bottomNumberLabel,
-            bottomSuitLabel
+            bottomSuitLabel,
+            middleImage
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         let _ = [
@@ -93,12 +92,20 @@ class EmojiCard: UIView, PlayingCard {
             topNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             topSuitLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             topSuitLabel.bottomAnchor.constraint(equalTo: topNumberLabel.bottomAnchor, constant: 28),
+            middleImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            middleImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             bottomNumberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             bottomNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
             bottomSuitLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             bottomSuitLabel.bottomAnchor.constraint(equalTo: bottomNumberLabel.topAnchor, constant: -8)
             ].map{ $0.isActive = true }
         
+        middleImage.fillWith(suit, num)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
     }
     
  }

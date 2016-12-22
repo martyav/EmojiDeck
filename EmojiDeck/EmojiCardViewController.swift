@@ -21,7 +21,6 @@ class EmojiCardViewController: UIViewController {
         self.view.backgroundColor = .blue
         
         card.translatesAutoresizingMaskIntoConstraints = false
-        card.style()
         self.view.addSubview(card)
         
         card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

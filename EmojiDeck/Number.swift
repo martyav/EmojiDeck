@@ -23,40 +23,4 @@ enum Number: Int {
     func cornerLabel() -> String {
         return String(self.rawValue)
     }
-    
-    // each inner array corresponds to a row inside an imaginary box
-    // the idea is that when we create the card, the strings in the inner arrays are += to with the correct emoji
-    // then they are positioned by placing the proper inner array in the proper label
-    // the labels will be arranged like so: 
-    // [
-    //  [...]
-    //  [...]
-    //  [...]
-    //   [.]
-    // ]
-    
-    func symbols() -> [[String]] {
-        switch self {
-        case .one:
-            return [[""]]
-        case .two:
-            return [[""],[""]]
-        case .three:
-            return [["",""],[""]]
-        case .four:
-            return [["",""],["",""]]
-        case .five:
-            return [["",""],[""],["",""]]
-        case .six:
-            return [["",""],["",""],["",""]]
-        case .seven:
-            return [["",""],["","",""],["",""]]
-        case .eight:
-            return [["",""],["","",""],["",""],[""]]
-        case .nine:
-            return [["","",""],["","",""],["","",""]]
-        case .ten:
-            return [["","",""],["","",""],["","",""],[""]]
-        }
-    }
 }
