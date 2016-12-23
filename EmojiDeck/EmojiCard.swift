@@ -30,8 +30,9 @@ class EmojiCard: UIView, PlayingCard {
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.borderWidth = 2
-        layer.borderColor = suit.color().cgColor
+        layer.cornerRadius = 10
         
+        layer.borderColor = UIColor.black.cgColor
         backgroundColor = .white
         
         widthAnchor.constraint(equalToConstant: 250).isActive = true
@@ -39,15 +40,18 @@ class EmojiCard: UIView, PlayingCard {
         
         topNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         topSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        
+        middleImage = Pips(frame: CGRect(x: 0, y: 0, width: 150, height: 250))
+        
         bottomNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         bottomSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         
-        topNumberLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        topNumberLabel.font = UIFont.boldSystemFont(ofSize: 40)
         topSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        bottomNumberLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        bottomNumberLabel.font = UIFont.boldSystemFont(ofSize: 40)
         bottomSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
-        middleImage = Pips(frame: CGRect(x: 0, y: 0, width: 150, height: 250))
         
         addSubview(topNumberLabel)
         addSubview(topSuitLabel)
@@ -67,11 +71,13 @@ class EmojiCard: UIView, PlayingCard {
         
         topNumberLabel?.text = num.cornerLabel()
         topSuitLabel?.text = suit.symbol()
+        
         bottomNumberLabel?.text = num.cornerLabel()
         bottomSuitLabel?.text = suit.symbol()
         
         topNumberLabel?.textColor = suit.color()
         topSuitLabel?.textColor = suit.color()
+        
         bottomNumberLabel?.textColor = suit.color()
         bottomSuitLabel?.textColor = suit.color()
         
@@ -82,20 +88,25 @@ class EmojiCard: UIView, PlayingCard {
         let _ = [
             topNumberLabel,
             topSuitLabel,
+            middleImage,
             bottomNumberLabel,
-            bottomSuitLabel,
-            middleImage
+            bottomSuitLabel
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         let _ = [
+            // top num
             topNumberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             topNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            // top suit
             topSuitLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             topSuitLabel.bottomAnchor.constraint(equalTo: topNumberLabel.bottomAnchor, constant: 28),
+            // middle stuff
             middleImage.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             middleImage.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            // bottom num
             bottomNumberLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             bottomNumberLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+            // bottom suit
             bottomSuitLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             bottomSuitLabel.bottomAnchor.constraint(equalTo: bottomNumberLabel.topAnchor, constant: -8)
             ].map{ $0.isActive = true }

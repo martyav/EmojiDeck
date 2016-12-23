@@ -18,10 +18,19 @@ class EmojiCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .gray
         
         card.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(card)
+        
+        if view.backgroundColor != .black {
+            card.layer.shadowColor = UIColor.black.cgColor
+        } else {
+            card.layer.shadowColor = UIColor.white.cgColor
+        }
+        card.layer.shadowOffset = CGSize(width: 5, height: 5)
+        card.layer.shadowRadius = 15
+        card.layer.shadowOpacity = 1
         
         card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         card.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -34,24 +43,32 @@ class EmojiCardViewController: UIViewController {
         ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
-        self.drawOneButton.setTitleColor(.white, for: .normal)
-        self.drawOneButton.layer.borderColor = UIColor.white.cgColor
+        self.drawOneButton.setTitleColor(.black, for: .normal)
+        self.drawOneButton.layer.borderColor = UIColor.black.cgColor
         self.drawOneButton.layer.borderWidth = 1
+        self.drawOneButton.layer.cornerRadius = 5
+        self.drawOneButton.backgroundColor = .white
         
         self.removeOneButton.setTitle(" Remove Card ", for: .normal)
-        self.removeOneButton.setTitleColor(.white, for: .normal)
-        self.removeOneButton.layer.borderColor = UIColor.white.cgColor
+        self.removeOneButton.setTitleColor(.black, for: .normal)
+        self.removeOneButton.layer.borderColor = UIColor.black.cgColor
         self.removeOneButton.layer.borderWidth = 1
+        self.removeOneButton.layer.cornerRadius = 5
+        self.removeOneButton.backgroundColor = .white
         
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
-        self.removeAllButton.setTitleColor(.white, for: .normal)
-        self.removeAllButton.layer.borderColor = UIColor.white.cgColor
+        self.removeAllButton.setTitleColor(.black, for: .normal)
+        self.removeAllButton.layer.borderColor = UIColor.black.cgColor
         self.removeAllButton.layer.borderWidth = 1
+        self.removeAllButton.layer.cornerRadius = 5
+        self.removeAllButton.backgroundColor = .white
         
         self.showStackButton.setTitle(" Show Stack ", for: .normal)
-        self.showStackButton.setTitleColor(.white, for: .normal)
-        self.showStackButton.layer.borderColor = UIColor.white.cgColor
-        self.showStackButton.layer.borderWidth = 1
+        self.showStackButton.setTitleColor(.black, for: .normal)
+        self.showStackButton.layer.borderColor = UIColor.black.cgColor
+        self.showStackButton.layer.borderWidth = 2
+        self.showStackButton.layer.cornerRadius = 5
+        self.showStackButton.backgroundColor = .white
         
         self.view.addSubview(drawOneButton)
         self.view.addSubview(removeOneButton)
