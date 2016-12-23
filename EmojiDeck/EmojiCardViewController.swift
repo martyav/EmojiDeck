@@ -23,11 +23,7 @@ class EmojiCardViewController: UIViewController {
         card.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(card)
         
-        if view.backgroundColor != .black {
-            card.layer.shadowColor = UIColor.black.cgColor
-        } else {
-            card.layer.shadowColor = UIColor.white.cgColor
-        }
+        card.layer.shadowColor = UIColor.black.cgColor
         card.layer.shadowOffset = CGSize(width: 5, height: 5)
         card.layer.shadowRadius = 15
         card.layer.shadowOpacity = 1
@@ -115,25 +111,21 @@ class EmojiCardViewController: UIViewController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
         }
-        
-        // add to array
-        CardStack.shared.store.append(self.card)
-
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
-        let currentIndex = CardStack.shared.store.count - 1
-        let cardToRemove = Int(arc4random_uniform(UInt32(CardStack.shared.store.count)))
-        guard cardToRemove != currentIndex else {
-            return didPressRemoveOneButton(sender: removeOneButton)
+        let cardToRemove = Int(arc4random_uniform(UInt32((navigationController?.viewControllers.count)!)))
+        guard cardToRemove != ((navigationController?.viewControllers.count)! - 1) else {
+            return self.didPressRemoveOneButton(sender: removeOneButton)
         }
-        CardStack.shared.store.remove(at: cardToRemove)
+        navigationController?.viewControllers.remove(at: cardToRemove)
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
         print("did press remove all")
-        CardStack.shared.store = []
+        let newVC = EmptyDeckViewController()
+        navigationController?.viewControllers = [newVC]
     }
     
     func didPressShowStackButton(sender: UIButton) {

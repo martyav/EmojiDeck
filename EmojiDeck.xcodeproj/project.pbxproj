@@ -15,7 +15,6 @@
 		D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358571E09DAA000337886 /* EmojiCardViewController.swift */; };
 		D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358591E09DF8D00337886 /* EmojiCard.swift */; };
 		D3C93DFA1E0C5C1600D5F5F8 /* Pips.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */; };
-		D3C93DFC1E0C7FAD00D5F5F8 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DFB1E0C7FAD00D5F5F8 /* CardStack.swift */; };
 		D3C93DFE1E0C918B00D5F5F8 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */; };
 		D3C93E291E0D740000D5F5F8 /* EmptyDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93E281E0D740000D5F5F8 /* EmptyDeckViewController.swift */; };
 /* End PBXBuildFile section */
@@ -31,7 +30,6 @@
 		D38358571E09DAA000337886 /* EmojiCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCardViewController.swift; sourceTree = "<group>"; };
 		D38358591E09DF8D00337886 /* EmojiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCard.swift; sourceTree = "<group>"; };
 		D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pips.swift; sourceTree = "<group>"; };
-		D3C93DFB1E0C7FAD00D5F5F8 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTableViewController.swift; sourceTree = "<group>"; };
 		D3C93E281E0D740000D5F5F8 /* EmptyDeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDeckViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +99,6 @@
 				D38358551E09DA5F00337886 /* Number.swift */,
 				D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */,
 				D38358591E09DF8D00337886 /* EmojiCard.swift */,
-				D3C93DFB1E0C7FAD00D5F5F8 /* CardStack.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -185,7 +182,6 @@
 				D3C93DFA1E0C5C1600D5F5F8 /* Pips.swift in Sources */,
 				D3C93E291E0D740000D5F5F8 /* EmptyDeckViewController.swift in Sources */,
 				D3C93DFE1E0C918B00D5F5F8 /* StackTableViewController.swift in Sources */,
-				D3C93DFC1E0C7FAD00D5F5F8 /* CardStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

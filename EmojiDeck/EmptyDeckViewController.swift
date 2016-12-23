@@ -24,7 +24,6 @@ class EmptyDeckViewController: UIViewController {
         emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(emptyDeckLabel)
         
-        emptyDeckLabel.backgroundColor = .red
         emptyDeckLabel.text = "Empty Deck!"
         emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true

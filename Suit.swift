@@ -32,11 +32,11 @@ enum Suit: Int {
         case .Ppl:
             return .black
         case .Vehicles:
-            return .red
-        case .Gadgets:
             return .green
+        case .Gadgets:
+            return .orange
         case .Cats:
-            return .blue
+            return .purple
         }
     }
 }
