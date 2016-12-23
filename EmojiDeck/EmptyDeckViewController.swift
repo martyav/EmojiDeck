@@ -43,14 +43,14 @@ class EmptyDeckViewController: UIViewController {
         self.drawOneButton.backgroundColor = .white
         
         self.removeOneButton.setTitle(" Remove Card ", for: .normal)
-        self.removeOneButton.setTitleColor(.black, for: .normal)
+        self.removeOneButton.setTitleColor(.gray, for: .normal)
         self.removeOneButton.layer.borderColor = UIColor.black.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
         self.removeOneButton.backgroundColor = .white
         
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
-        self.removeAllButton.setTitleColor(.black, for: .normal)
+        self.removeAllButton.setTitleColor(.gray, for: .normal)
         self.removeAllButton.layer.borderColor = UIColor.black.cgColor
         self.removeAllButton.layer.borderWidth = 2
         self.removeAllButton.layer.cornerRadius = 5
@@ -108,24 +108,14 @@ class EmptyDeckViewController: UIViewController {
             navVC.pushViewController(newVC, animated: true)
         }
         
-        // add to array
-        CardStack.shared.store.append(newVC.card)
-        
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
-        let currentIndex = CardStack.shared.store.count - 1
-        let cardToRemove = Int(arc4random_uniform(UInt32(CardStack.shared.store.count)))
-        guard cardToRemove != currentIndex else {
-            return didPressRemoveOneButton(sender: removeOneButton)
-        }
-        CardStack.shared.store.remove(at: cardToRemove)
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
         print("did press remove all")
-        CardStack.shared.store = []
     }
     
     func didPressShowStackButton(sender: UIButton) {

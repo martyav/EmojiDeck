@@ -119,6 +119,9 @@ class EmojiCardViewController: UIViewController {
         guard cardToRemove != ((navigationController?.viewControllers.count)! - 1) else {
             return self.didPressRemoveOneButton(sender: removeOneButton)
         }
+        guard navigationController?.viewControllers.count != 0 else {
+            return
+        }
         navigationController?.viewControllers.remove(at: cardToRemove)
     }
     
