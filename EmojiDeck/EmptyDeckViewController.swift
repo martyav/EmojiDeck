@@ -1,46 +1,40 @@
 //
-//  EmojiCardViewController.swift
+//  EmptyDeckViewController.swift
 //  EmojiDeck
 //
-//  Created by Marty Avedon on 12/20/16.
+//  Created by Marty Avedon on 12/23/16.
 //  Copyright © 2016 Marty Hernandez Avedon. All rights reserved.
 //
 
 import UIKit
 
-class EmojiCardViewController: UIViewController {
-
+class EmptyDeckViewController: UIViewController {
+    
     var drawOneButton = UIButton(type: UIButtonType.system)
     var removeOneButton = UIButton(type: UIButtonType.system)
     var showStackButton = UIButton(type: UIButtonType.system)
     var removeAllButton = UIButton(type: UIButtonType.system)
-    var card = EmojiCard()
+    var emptyDeckLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = card.suit.color()
         
-        card.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(card)
+        view.backgroundColor = .white
         
-        if view.backgroundColor != .black {
-            card.layer.shadowColor = UIColor.black.cgColor
-        } else {
-            card.layer.shadowColor = UIColor.white.cgColor
-        }
-        card.layer.shadowOffset = CGSize(width: 5, height: 5)
-        card.layer.shadowRadius = 15
-        card.layer.shadowOpacity = 1
+        emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(emptyDeckLabel)
         
-        card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        card.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        emptyDeckLabel.backgroundColor = .red
+        emptyDeckLabel.text = "Empty Deck!"
+        emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         let _ = [
             self.removeAllButton,
             self.showStackButton,
             self.removeOneButton,
             self.drawOneButton
-        ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
         self.drawOneButton.setTitleColor(.black, for: .normal)
@@ -105,7 +99,6 @@ class EmojiCardViewController: UIViewController {
         // create a destination vc
         
         let newVC = EmojiCardViewController()
-        newVC.view.backgroundColor = card.suit.color()
         
         // present it modally
         //self.present(newVC, animated: true, completion: nil)
@@ -117,8 +110,8 @@ class EmojiCardViewController: UIViewController {
         }
         
         // add to array
-        CardStack.shared.store.append(self.card)
-
+        CardStack.shared.store.append(newVC.card)
+        
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
@@ -156,5 +149,6 @@ class EmojiCardViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         print("view did disappear")
     }
+    
     
 }
