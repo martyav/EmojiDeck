@@ -111,6 +111,7 @@ class EmptyDeckViewController: UIViewController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
         }
+        EmojiCard.cardDeck.append((newVC.card.suit, newVC.card.num))
         
     }
     

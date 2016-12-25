@@ -130,7 +130,7 @@ class EmojiCard: UIView, PlayingCard {
         return (suit, num)
     }
     
-    static func alreadyExists(suitAndNumber: (Suit, Number)) -> Bool {
+    static func checkIfAlreadyExists(suitAndNumber: (Suit, Number)) -> Bool {
         for card in EmojiCard.cardDeck {
             if suitAndNumber.0 == card.0 && suitAndNumber.1 == card.1 {
                 return true
@@ -147,11 +147,11 @@ class EmojiCard: UIView, PlayingCard {
         // generate suit and number 
         let suitAndNumber = EmojiCard.randomize()
         // run check
-        if EmojiCard.alreadyExists(suitAndNumber: suitAndNumber) {
+        if EmojiCard.checkIfAlreadyExists(suitAndNumber: suitAndNumber) {
         // keep running random card until check is untrue
             ensureFreshCard()
         }
-        // set suit and number of fresh card
+        // set suit and number
         self.suit = suitAndNumber.0
         self.num = suitAndNumber.1
         // add card to cardDeck

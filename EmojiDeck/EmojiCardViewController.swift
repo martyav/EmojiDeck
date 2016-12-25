@@ -19,6 +19,10 @@ class EmojiCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load")
+        print(EmojiCard.cardDeck.count)
+        if let navCount = navigationController?.viewControllers.count {
+            print(navCount ?? ".........")
+        }
         self.view.backgroundColor = card.suit.color()
         
         card.translatesAutoresizingMaskIntoConstraints = false
@@ -41,10 +45,16 @@ class EmojiCardViewController: UIViewController {
         
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
         self.drawOneButton.setTitleColor(.black, for: .normal)
+        self.drawOneButton.setTitleColor(.black, for: .disabled)
         self.drawOneButton.layer.borderColor = UIColor.black.cgColor
         self.drawOneButton.layer.borderWidth = 2
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
+        
+        if EmojiCard.cardDeck.count > 39 {
+            self.drawOneButton.layer.borderColor = UIColor.gray.cgColor
+            self.drawOneButton.isEnabled = false
+        }
         
         self.removeOneButton.setTitle(" Remove One ", for: .normal)
         self.removeOneButton.setTitleColor(.black, for: .normal)
@@ -128,17 +138,25 @@ class EmojiCardViewController: UIViewController {
             removeOneButton.isEnabled = false
             return
         }
-        let cardToRemove = Int(arc4random_uniform(UInt32((navigationController?.viewControllers.count)!)))
-        if cardToRemove == (navigationController?.viewControllers.count)! - 1 {
+        let indexToRemove = Int(arc4random_uniform(UInt32((navigationController?.viewControllers.count)!)))
+        if indexToRemove == (navigationController?.viewControllers.count)! - 1 {
             return didPressRemoveOneButton(sender: sender)
         }
-        navigationController?.viewControllers.remove(at: cardToRemove)
+        if let vcToRemove = navigationController?.viewControllers[indexToRemove] as? EmojiCardViewController {
+            let cardToRemove = vcToRemove.card
+            let cardSuit = cardToRemove.suit
+            let cardNum = cardToRemove.num
+            // find correct index of card to remove
+            // remove it from deck
+            navigationController?.viewControllers.remove(at: indexToRemove)
+        }
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
         print("did press remove all")
         let newVC = EmptyDeckViewController()
         navigationController?.viewControllers = [newVC]
+        EmojiCard.cardDeck = []
     }
     
     func didPressShowStackButton(sender: UIButton) {
