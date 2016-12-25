@@ -78,9 +78,11 @@
 		D38358481E09D1CC00337886 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				D383583D1E09D0E900337886 /* Assets.xcassets */,
+				D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */,
+				D38358591E09DF8D00337886 /* EmojiCard.swift */,
 				D390ADA41E0F68D6000BD148 /* CardTableViewCell.swift */,
 				D383583F1E09D0E900337886 /* LaunchScreen.storyboard */,
+				D383583D1E09D0E900337886 /* Assets.xcassets */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -100,8 +102,6 @@
 			children = (
 				D38358531E09D89400337886 /* Suit.swift */,
 				D38358551E09DA5F00337886 /* Number.swift */,
-				D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */,
-				D38358591E09DF8D00337886 /* EmojiCard.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";

@@ -42,23 +42,23 @@ class EmptyDeckViewController: UIViewController {
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
         
-        self.removeOneButton.setTitle(" Remove One ", for: .normal)
+        self.removeOneButton.setTitle(" Remove One ", for: .disabled)
         self.removeOneButton.setTitleColor(.gray, for: .disabled)
         self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
         self.removeOneButton.backgroundColor = .white
         
-        self.removeAllButton.setTitle(" Remove All ", for: .normal)
+        self.removeAllButton.setTitle(" Remove All ", for: .disabled)
         self.removeOneButton.setTitleColor(.gray, for: .disabled)
         self.removeAllButton.layer.borderColor = UIColor.gray.cgColor
         self.removeAllButton.layer.borderWidth = 2
         self.removeAllButton.layer.cornerRadius = 5
         self.removeAllButton.backgroundColor = .white
         
-        self.showStackButton.setTitle(" Show Stack ", for: .normal)
-        self.showStackButton.setTitleColor(.black, for: .normal)
-        self.showStackButton.layer.borderColor = UIColor.black.cgColor
+        self.showStackButton.setTitle(" Show Stack ", for: .disabled)
+        self.showStackButton.setTitleColor(.gray, for: .disabled)
+        self.showStackButton.layer.borderColor = UIColor.gray.cgColor
         self.showStackButton.layer.borderWidth = 2
         self.showStackButton.layer.cornerRadius = 5
         self.showStackButton.backgroundColor = .white
@@ -93,6 +93,7 @@ class EmptyDeckViewController: UIViewController {
         
         removeOneButton.isEnabled = false
         removeAllButton.isEnabled = false
+        showStackButton.isEnabled = false
     }
     
     func didPressDrawOneButton(sender: UIButton) {

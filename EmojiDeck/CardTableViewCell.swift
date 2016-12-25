@@ -15,9 +15,6 @@ class CardTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layoutSubviews()
-        
-        numberAndSuitLabel?.text = ""
-        
         self.addSubview(numberAndSuitLabel)
     }
     
@@ -29,8 +26,7 @@ class CardTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         numberAndSuitLabel = UILabel()
-        
-        numberAndSuitLabel.frame = CGRect(x: 8, y: 8, width: 200, height: 20)
+        numberAndSuitLabel.frame = CGRect(x: 8, y: -4, width: 200, height: 50)
     }
 
 }
