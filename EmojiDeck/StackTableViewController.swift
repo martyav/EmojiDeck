@@ -9,9 +9,13 @@
 import UIKit
 
 class StackTableViewController: UITableViewController {
+    
+    let cellReuseIdentifier = "cardCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(CardTableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
 
         title = "Cards"
         
@@ -30,15 +34,20 @@ class StackTableViewController: UITableViewController {
         return (navigationController?.viewControllers.count)!
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cardCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! CardTableViewCell
 
         // Configure the cell...
+        if let thisParticularViewController = navigationController?.viewControllers[indexPath.row] as? EmojiCardViewController {
+            cell.numberAndSuitLabel.textColor = thisParticularViewController.card.topNumberLabel.textColor
+            cell.numberAndSuitLabel.font = UIFont(name: "Claredon-Bold", size: 40)
+            cell.numberAndSuitLabel.text = "\(thisParticularViewController.card.topNumberLabel.text!) \(thisParticularViewController.card.topSuitLabel.text!)"
+        }
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.
