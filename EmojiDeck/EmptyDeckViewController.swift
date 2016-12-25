@@ -124,7 +124,6 @@ class EmptyDeckViewController: UIViewController {
     
     func didPressShowStackButton(sender: UIButton) {
         print("did press show stack")
-        // make a tableview
     }
     
     override func viewWillAppear(_ animated: Bool) {

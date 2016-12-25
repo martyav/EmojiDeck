@@ -18,6 +18,7 @@ class EmojiCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("view did load")
         self.view.backgroundColor = card.suit.color()
         
         card.translatesAutoresizingMaskIntoConstraints = false

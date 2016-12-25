@@ -20,12 +20,13 @@ class EmojiCard: UIView, PlayingCard {
     var bottomNumberLabel: UILabel!
     var bottomSuitLabel: UILabel!
     
-    let suit = Suit(rawValue: Int(arc4random_uniform(4)))!
-    let num = Number(rawValue: Int(arc4random_uniform(9) + 1))!
+    var suit: Suit = .Ppl
+    var num: Number = Number(rawValue: 10)!
     
     override init(frame: CGRect) {
- 
         super.init(frame: frame)
+        
+        self.ensureFreshCard()
         
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -67,7 +68,7 @@ class EmojiCard: UIView, PlayingCard {
             bottomNumberLabel,
             bottomSuitLabel,
             middleImage
-        ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         topNumberLabel?.text = num.cornerLabel()
         topSuitLabel?.text = suit.symbol()
@@ -112,6 +113,7 @@ class EmojiCard: UIView, PlayingCard {
             ].map{ $0.isActive = true }
         
         middleImage.fillWith(suit, num)
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -119,4 +121,40 @@ class EmojiCard: UIView, PlayingCard {
         super.init(coder: aDecoder)
     }
     
+    static var cardDeck: [(Suit, Number)] = []
+    
+    static func randomize() -> (Suit, Number) {
+        let suit = Suit(rawValue: Int(arc4random_uniform(4)))!
+        let num = Number(rawValue: Int(arc4random_uniform(10) + 1))!
+        
+        return (suit, num)
+    }
+    
+    static func alreadyExists(suitAndNumber: (Suit, Number)) -> Bool {
+        for card in EmojiCard.cardDeck {
+            if suitAndNumber.0 == card.0 && suitAndNumber.1 == card.1 {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func ensureFreshCard() {
+        // check to see that the cardDeck does not equal or exceed 40 -- if it does, alert and return
+        guard EmojiCard.cardDeck.count < 40 else {
+            print("we have a full deck")
+            return }
+        // generate suit and number 
+        let suitAndNumber = EmojiCard.randomize()
+        // run check
+        if EmojiCard.alreadyExists(suitAndNumber: suitAndNumber) {
+        // keep running random card until check is untrue
+            ensureFreshCard()
+        }
+        // set suit and number of fresh card
+        self.suit = suitAndNumber.0
+        self.num = suitAndNumber.1
+        // add card to cardDeck
+        EmojiCard.cardDeck.append((self.suit, self.num))
+    }
  }
