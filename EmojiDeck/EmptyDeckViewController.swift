@@ -42,16 +42,16 @@ class EmptyDeckViewController: UIViewController {
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
         
-        self.removeOneButton.setTitle(" Remove Card ", for: .normal)
-        self.removeOneButton.setTitleColor(.gray, for: .normal)
-        self.removeOneButton.layer.borderColor = UIColor.black.cgColor
+        self.removeOneButton.setTitle(" Remove One ", for: .normal)
+        self.removeOneButton.setTitleColor(.gray, for: .disabled)
+        self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
         self.removeOneButton.backgroundColor = .white
         
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
-        self.removeAllButton.setTitleColor(.gray, for: .normal)
-        self.removeAllButton.layer.borderColor = UIColor.black.cgColor
+        self.removeOneButton.setTitleColor(.gray, for: .disabled)
+        self.removeAllButton.layer.borderColor = UIColor.gray.cgColor
         self.removeAllButton.layer.borderWidth = 2
         self.removeAllButton.layer.cornerRadius = 5
         self.removeAllButton.backgroundColor = .white
@@ -90,6 +90,9 @@ class EmptyDeckViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         print("layout subviews!!!")
+        
+        removeOneButton.isEnabled = false
+        removeAllButton.isEnabled = false
     }
     
     func didPressDrawOneButton(sender: UIButton) {

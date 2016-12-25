@@ -32,7 +32,7 @@ enum Suit: Int {
         case .Ppl:
             return .black
         case .Vehicles:
-            return .green
+            return UIColor(red:0.18, green:0.70, blue:0.29, alpha:1.0)
         case .Gadgets:
             return .orange
         case .Cats:

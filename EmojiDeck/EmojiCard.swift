@@ -46,10 +46,10 @@ class EmojiCard: UIView, PlayingCard {
         bottomNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         bottomSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         
-        topNumberLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        topNumberLabel.font = UIFont(name: "Superclarendon-Black", size: 40)
         topSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
-        bottomNumberLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        bottomNumberLabel.font = UIFont(name: "Superclarendon-Black", size: 40)
         bottomSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
         
         

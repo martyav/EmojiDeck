@@ -30,8 +30,8 @@ class Pips: UIView {
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        layer.borderWidth = 5
-        layer.cornerRadius = 15
+        //layer.borderWidth = 5
+        //layer.cornerRadius = 15
         
         backgroundColor = .white
         
@@ -140,7 +140,7 @@ class Pips: UIView {
             label?.text = emoji.symbol()
         }
         
-        layer.borderColor = emoji.color().cgColor
+        //layer.borderColor = emoji.color().cgColor
         
         switch number {
         case .one:

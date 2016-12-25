@@ -25,7 +25,7 @@ class EmojiCardViewController: UIViewController {
         
         card.layer.shadowColor = UIColor.black.cgColor
         card.layer.shadowOffset = CGSize(width: 5, height: 5)
-        card.layer.shadowRadius = 15
+        card.layer.shadowRadius = 20
         card.layer.shadowOpacity = 1
         
         card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -45,12 +45,18 @@ class EmojiCardViewController: UIViewController {
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
         
-        self.removeOneButton.setTitle(" Remove Card ", for: .normal)
+        self.removeOneButton.setTitle(" Remove One ", for: .normal)
         self.removeOneButton.setTitleColor(.black, for: .normal)
+        self.removeOneButton.setTitleColor(.gray, for: .disabled)
         self.removeOneButton.layer.borderColor = UIColor.black.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
         self.removeOneButton.backgroundColor = .white
+        
+        if navigationController?.viewControllers.count == 2 {
+            self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
+            self.removeOneButton.isEnabled = false
+        }
         
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
         self.removeAllButton.setTitleColor(.black, for: .normal)
@@ -86,7 +92,7 @@ class EmojiCardViewController: UIViewController {
         self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
         self.removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
         self.showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
-        
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -115,12 +121,15 @@ class EmojiCardViewController: UIViewController {
     
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
-        let cardToRemove = Int(arc4random_uniform(UInt32((navigationController?.viewControllers.count)!)))
-        guard cardToRemove != ((navigationController?.viewControllers.count)! - 1) else {
-            return self.didPressRemoveOneButton(sender: removeOneButton)
-        }
-        guard navigationController?.viewControllers.count != 0 else {
+        guard (navigationController?.viewControllers.count)! > 2 else {
+            self.removeOneButton.setTitleColor(.gray, for: .normal)
+            self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
+            removeOneButton.isEnabled = false
             return
+        }
+        let cardToRemove = Int(arc4random_uniform(UInt32((navigationController?.viewControllers.count)!)))
+        if cardToRemove == (navigationController?.viewControllers.count)! - 1 {
+            return didPressRemoveOneButton(sender: sender)
         }
         navigationController?.viewControllers.remove(at: cardToRemove)
     }
@@ -133,7 +142,11 @@ class EmojiCardViewController: UIViewController {
     
     func didPressShowStackButton(sender: UIButton) {
         print("did press show stack")
-        // make a tableview
+        let destination = StackTableViewController()
+        if let navVC = self.navigationController {
+            print("nav found")
+            navVC.pushViewController(destination, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

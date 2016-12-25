@@ -14,6 +14,7 @@
 		D38358561E09DA5F00337886 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358551E09DA5F00337886 /* Number.swift */; };
 		D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358571E09DAA000337886 /* EmojiCardViewController.swift */; };
 		D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358591E09DF8D00337886 /* EmojiCard.swift */; };
+		D390ADA51E0F68D6000BD148 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D390ADA41E0F68D6000BD148 /* CardTableViewCell.swift */; };
 		D3C93DFA1E0C5C1600D5F5F8 /* Pips.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */; };
 		D3C93DFE1E0C918B00D5F5F8 /* StackTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */; };
 		D3C93E291E0D740000D5F5F8 /* EmptyDeckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C93E281E0D740000D5F5F8 /* EmptyDeckViewController.swift */; };
@@ -29,6 +30,7 @@
 		D38358551E09DA5F00337886 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		D38358571E09DAA000337886 /* EmojiCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCardViewController.swift; sourceTree = "<group>"; };
 		D38358591E09DF8D00337886 /* EmojiCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCard.swift; sourceTree = "<group>"; };
+		D390ADA41E0F68D6000BD148 /* CardTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pips.swift; sourceTree = "<group>"; };
 		D3C93DFD1E0C918B00D5F5F8 /* StackTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackTableViewController.swift; sourceTree = "<group>"; };
 		D3C93E281E0D740000D5F5F8 /* EmptyDeckViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDeckViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				D383583D1E09D0E900337886 /* Assets.xcassets */,
+				D390ADA41E0F68D6000BD148 /* CardTableViewCell.swift */,
 				D383583F1E09D0E900337886 /* LaunchScreen.storyboard */,
 			);
 			name = UI;
@@ -181,6 +184,7 @@
 				D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */,
 				D3C93DFA1E0C5C1600D5F5F8 /* Pips.swift in Sources */,
 				D3C93E291E0D740000D5F5F8 /* EmptyDeckViewController.swift in Sources */,
+				D390ADA51E0F68D6000BD148 /* CardTableViewCell.swift in Sources */,
 				D3C93DFE1E0C918B00D5F5F8 /* StackTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
