@@ -19,6 +19,8 @@ class EmptyDeckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        EmojiCard.createFreshDeck()
+        
         view.backgroundColor = .white
         
         emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -111,8 +113,6 @@ class EmptyDeckViewController: UIViewController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
         }
-        EmojiCard.cardDeck.append((newVC.card.suit, newVC.card.num))
-        
     }
     
     func didPressRemoveOneButton(sender: UIButton) {

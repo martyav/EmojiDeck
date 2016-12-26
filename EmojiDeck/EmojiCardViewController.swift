@@ -14,15 +14,15 @@ class EmojiCardViewController: UIViewController {
     var removeOneButton = UIButton(type: UIButtonType.system)
     var showStackButton = UIButton(type: UIButtonType.system)
     var removeAllButton = UIButton(type: UIButtonType.system)
-    var card = EmojiCard()
+    var card = EmojiCard.drawACard()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load")
         print(EmojiCard.cardDeck.count)
-        if let navCount = navigationController?.viewControllers.count {
-            print(navCount ?? ".........")
-        }
+        
+        card.style()
+        
         self.view.backgroundColor = card.suit.color()
         
         card.translatesAutoresizingMaskIntoConstraints = false
@@ -51,7 +51,7 @@ class EmojiCardViewController: UIViewController {
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
         
-        if EmojiCard.cardDeck.count > 39 {
+        if EmojiCard.cardDeck.count < 1 || EmojiCard.discardPile.count > 39 {
             self.drawOneButton.layer.borderColor = UIColor.gray.cgColor
             self.drawOneButton.isEnabled = false
         }
@@ -64,7 +64,7 @@ class EmojiCardViewController: UIViewController {
         self.removeOneButton.layer.cornerRadius = 5
         self.removeOneButton.backgroundColor = .white
         
-        if navigationController?.viewControllers.count == 2 {
+        if EmojiCard.cardDeck.count < 1 || EmojiCard.discardPile.count > 39 {
             self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
             self.removeOneButton.isEnabled = false
         }
@@ -142,14 +142,7 @@ class EmojiCardViewController: UIViewController {
         if indexToRemove == (navigationController?.viewControllers.count)! - 1 {
             return didPressRemoveOneButton(sender: sender)
         }
-        if let vcToRemove = navigationController?.viewControllers[indexToRemove] as? EmojiCardViewController {
-            let cardToRemove = vcToRemove.card
-            let cardSuit = cardToRemove.suit
-            let cardNum = cardToRemove.num
-            // find correct index of card to remove
-            // remove it from deck
             navigationController?.viewControllers.remove(at: indexToRemove)
-        }
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
