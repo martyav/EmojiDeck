@@ -38,14 +38,17 @@ class StackTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! CardTableViewCell
-
+        
         // Configure the cell...
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         if let thisParticularViewController = navigationController?.viewControllers[indexPath.row] as? EmojiCardViewController {
-            cell.numberAndSuitLabel.text = "\(thisParticularViewController.card.topNumberLabel.text!) \(thisParticularViewController.card.topSuitLabel.text!)"
+            cell.numberAndSuitLabel.text = "\(thisParticularViewController.card.num.rawValue) \(thisParticularViewController.card.suit.symbol())"
             cell.numberAndSuitLabel.textColor = .white
             cell.numberAndSuitLabel.font = thisParticularViewController.card.topNumberLabel.font
             cell.backgroundColor = thisParticularViewController.card.topNumberLabel.textColor
             cell.numberAndSuitLabel.textAlignment = .justified
+            
+            return cell
         }
 
         return cell

@@ -22,6 +22,20 @@ class EmojiCardViewController: UIViewController {
         print(EmojiCard.cardDeck.count)
         
         card.style()
+        let randomDirection = arc4random_uniform(2)
+        let leftOrRight: Double
+        
+        if randomDirection == 1 {
+            leftOrRight = -1.0
+        } else {
+            leftOrRight = 1.0
+        }
+        
+        let randomTwist = Double(arc4random_uniform(20))
+        
+        let angle = (randomTwist/100) * leftOrRight
+        
+        card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
         
         self.view.backgroundColor = card.suit.color()
         
@@ -45,7 +59,7 @@ class EmojiCardViewController: UIViewController {
         
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
         self.drawOneButton.setTitleColor(.black, for: .normal)
-        self.drawOneButton.setTitleColor(.black, for: .disabled)
+        self.drawOneButton.setTitleColor(.gray, for: .disabled)
         self.drawOneButton.layer.borderColor = UIColor.black.cgColor
         self.drawOneButton.layer.borderWidth = 2
         self.drawOneButton.layer.cornerRadius = 5

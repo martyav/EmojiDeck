@@ -155,13 +155,15 @@ class EmojiCard: UIView, PlayingCard {
     static func drawACard() -> EmojiCard {
         let currentActiveCards = 40 - EmojiCard.discardPile.count
         
-        let randomIndex = arc4random_uniform(UInt32(currentActiveCards))
-        let newCard = EmojiCard.cardDeck[Int(randomIndex)]
+        //let randomIndex = arc4random_uniform(UInt32(currentActiveCards))
+        //let newCard = EmojiCard.cardDeck[Int(randomIndex)]
         
-        discardPile.append(newCard)
-        cardDeck.remove(at: Int(randomIndex))
+        let newCard = EmojiCard.cardDeck.last
         
-        return newCard
+        discardPile.append(newCard!)
+        cardDeck.removeLast()
+        
+        return newCard!
     }
     
  }

@@ -15,7 +15,7 @@ class CardTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         layoutSubviews()
-        self.addSubview(numberAndSuitLabel)
+        self.contentView.addSubview(numberAndSuitLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,6 +27,11 @@ class CardTableViewCell: UITableViewCell {
         
         numberAndSuitLabel = UILabel()
         numberAndSuitLabel.frame = CGRect(x: 8, y: -4, width: 200, height: 50)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
     }
 
 }
