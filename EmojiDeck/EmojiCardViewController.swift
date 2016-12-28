@@ -22,10 +22,9 @@ class EmojiCardViewController: UIViewController {
         print(EmojiCard.cardDeck.count)
         
         card.style()
-        let randomDirection = arc4random_uniform(2)
         let leftOrRight: Double
         
-        if randomDirection == 1 {
+        if EmojiCard.discardPile.count % 2 == 0 {
             leftOrRight = -1.0
         } else {
             leftOrRight = 1.0
@@ -157,6 +156,7 @@ class EmojiCardViewController: UIViewController {
             return didPressRemoveOneButton(sender: sender)
         }
             navigationController?.viewControllers.remove(at: indexToRemove)
+            EmojiCard.cardDeck.remove(at: indexToRemove)
     }
     
     func didPressRemoveAllButton(sender: UIButton) {

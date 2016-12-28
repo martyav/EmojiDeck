@@ -17,7 +17,7 @@ class StackTableViewController: UITableViewController {
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
 
-        title = "Cards"
+        //title = "Cards"
         self.tableView.separatorStyle = .none
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -32,7 +32,7 @@ class StackTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (navigationController?.viewControllers.count)! - 1
+        return (navigationController?.viewControllers.count)!
     }
 
     
@@ -41,6 +41,12 @@ class StackTableViewController: UITableViewController {
         
         // Configure the cell...
         cell.selectionStyle = UITableViewCellSelectionStyle.none
+        if let thisParticularViewController = navigationController?.viewControllers[indexPath.row] as? EmptyDeckViewController {
+            cell.numberAndSuitLabel.text = "Current Deck"
+            cell.backgroundColor = .white
+            cell.numberAndSuitLabel.textColor = .black
+            cell.numberAndSuitLabel.font = UIFont(name: "Superclarendon-Black", size: 20)
+        }
         if let thisParticularViewController = navigationController?.viewControllers[indexPath.row] as? EmojiCardViewController {
             cell.numberAndSuitLabel.text = "\(thisParticularViewController.card.num.rawValue) \(thisParticularViewController.card.suit.symbol())"
             cell.numberAndSuitLabel.textColor = .white

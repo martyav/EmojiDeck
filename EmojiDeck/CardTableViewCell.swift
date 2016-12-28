@@ -14,8 +14,8 @@ class CardTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        layoutSubviews()
-        self.contentView.addSubview(numberAndSuitLabel)
+        numberAndSuitLabel = UILabel()
+        self.addSubview(numberAndSuitLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,14 +24,7 @@ class CardTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        numberAndSuitLabel = UILabel()
         numberAndSuitLabel.frame = CGRect(x: 8, y: -4, width: 200, height: 50)
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
     }
 
 }
