@@ -22,13 +22,19 @@ class EmptyDeckViewController: UIViewController {
         if EmojiCard.cardDeck.count == 0 {
             EmojiCard.createFreshDeck()
         }
-        
-        view.backgroundColor = .white
+
+        view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
         emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(emptyDeckLabel)
         
-        emptyDeckLabel.text = "Empty Deck!"
+        emptyDeckLabel.text = "Start Deck!"
+        emptyDeckLabel.font = UIFont(name: "Superclarendon-Black", size: 30)
+        emptyDeckLabel.textColor = .white
+        emptyDeckLabel.layer.shadowColor = UIColor.white.cgColor
+        emptyDeckLabel.layer.shadowOffset = CGSize(width: 5, height: 5)
+        emptyDeckLabel.layer.shadowRadius = 35
+        emptyDeckLabel.layer.shadowOpacity = 1
         emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
@@ -41,14 +47,16 @@ class EmptyDeckViewController: UIViewController {
         
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
         self.drawOneButton.setTitleColor(.black, for: .normal)
+        self.drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.drawOneButton.layer.borderColor = UIColor.black.cgColor
         self.drawOneButton.layer.borderWidth = 2
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
         
-        self.removeOneButton.setTitle(" Remove One ", for: .disabled)
+        self.removeOneButton.setTitle(" Drop Card ", for: .disabled)
         self.removeOneButton.setTitleColor(.gray, for: .disabled)
         self.removeOneButton.setTitleColor(.black, for: .normal)
+        self.removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
@@ -57,6 +65,7 @@ class EmptyDeckViewController: UIViewController {
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
         self.removeAllButton.setTitleColor(.gray, for: .disabled)
         self.removeAllButton.setTitleColor(.black, for: .normal)
+        self.removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.removeAllButton.layer.borderColor = UIColor.gray.cgColor
         self.removeAllButton.layer.borderWidth = 2
         self.removeAllButton.layer.cornerRadius = 5
@@ -65,12 +74,13 @@ class EmptyDeckViewController: UIViewController {
         self.showStackButton.setTitle(" Show Stack ", for: .normal)
         self.showStackButton.setTitleColor(.gray, for: .disabled)
         self.showStackButton.setTitleColor(.black, for: .normal)
+        self.showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.showStackButton.layer.borderColor = UIColor.gray.cgColor
         self.showStackButton.layer.borderWidth = 2
         self.showStackButton.layer.cornerRadius = 5
         self.showStackButton.backgroundColor = .white
         
-        if EmojiCard.discardPile.count >= 1  {
+        if (navigationController?.viewControllers.count)! > 1  {
             showStackButton.isEnabled = true
             removeOneButton.isEnabled = true
             removeAllButton.isEnabled = true
@@ -93,11 +103,11 @@ class EmptyDeckViewController: UIViewController {
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -38),
+            drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -48),
             removeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -38)
+            showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
             ].map{ $0.isActive = true }
         
         self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
@@ -111,10 +121,6 @@ class EmptyDeckViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         print("layout subviews!!!")
-        
-        removeOneButton.isEnabled = false
-        removeAllButton.isEnabled = false
-        showStackButton.isEnabled = false
     }
     
     func didPressDrawOneButton(sender: UIButton) {
@@ -135,7 +141,33 @@ class EmptyDeckViewController: UIViewController {
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
-        print("did press remove one")
+        // commenting this in will make remove one remove top cards even on the emojivc's
+//        print("did press remove one")
+//        if EmojiCard.discardPile.count == 1 {
+//            print("you can't remove the only card")
+//            return
+//        }
+//        
+//        let upperLimitForRandom = navigationController!.viewControllers.count
+//        let indexToRemove = Int(arc4random_uniform(UInt32(upperLimitForRandom)))
+//        
+//        guard indexToRemove != 0 else { return didPressRemoveOneButton(sender: sender) }
+//        
+//        if let _ = navigationController?.viewControllers[indexToRemove] as? EmptyDeckViewController {
+//            print("we tried to remove the empty deck vc")
+//            return didPressRemoveOneButton(sender: sender)
+//        }
+//        
+//        let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemove - 1])
+//        print("we removed \(EmojiCard.cardDeck[cardToReset!].topNumberLabel?.text) \(EmojiCard.cardDeck[cardToReset!].topSuitLabel?.text)")
+//        EmojiCard.cardDeck[cardToReset!].canBeDrawn = true
+//        EmojiCard.discardPile.remove(at: indexToRemove - 1)
+//        navigationController?.viewControllers.remove(at: indexToRemove)
+//        
+//        if EmojiCard.currentSizeOfDeck >= 1 {
+//            drawOneButton.isEnabled = true
+//            drawOneButton.layer.borderColor = UIColor.black.cgColor
+//        }
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
@@ -176,6 +208,4 @@ class EmptyDeckViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         print("view did disappear")
     }
-    
-    
 }

@@ -38,6 +38,10 @@ class EmojiCardViewController: UIViewController {
         
         self.view.backgroundColor = card.suit.color()
         
+        if card.suit.color() == .black {
+            self.view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+        }
+        
         card.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(card)
         
@@ -59,6 +63,7 @@ class EmojiCardViewController: UIViewController {
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
         self.drawOneButton.setTitleColor(.black, for: .normal)
         self.drawOneButton.setTitleColor(.gray, for: .disabled)
+        self.drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.drawOneButton.layer.borderColor = UIColor.black.cgColor
         self.drawOneButton.layer.borderWidth = 2
         self.drawOneButton.layer.cornerRadius = 5
@@ -69,9 +74,10 @@ class EmojiCardViewController: UIViewController {
             self.drawOneButton.isEnabled = false
         }
         
-        self.removeOneButton.setTitle(" Remove One ", for: .normal)
+        self.removeOneButton.setTitle(" Drop Card ", for: .normal)
         self.removeOneButton.setTitleColor(.black, for: .normal)
         self.removeOneButton.setTitleColor(.gray, for: .disabled)
+        self.removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.removeOneButton.layer.borderColor = UIColor.black.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
@@ -84,6 +90,7 @@ class EmojiCardViewController: UIViewController {
         
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
         self.removeAllButton.setTitleColor(.black, for: .normal)
+        self.removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.removeAllButton.layer.borderColor = UIColor.black.cgColor
         self.removeAllButton.layer.borderWidth = 2
         self.removeAllButton.layer.cornerRadius = 5
@@ -91,6 +98,7 @@ class EmojiCardViewController: UIViewController {
         
         self.showStackButton.setTitle(" Show Stack ", for: .normal)
         self.showStackButton.setTitleColor(.black, for: .normal)
+        self.showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.showStackButton.layer.borderColor = UIColor.black.cgColor
         self.showStackButton.layer.borderWidth = 2
         self.showStackButton.layer.cornerRadius = 5
@@ -105,11 +113,11 @@ class EmojiCardViewController: UIViewController {
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -38),
+            drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -48),
             removeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -38)
+            showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
             ].map{ $0.isActive = true }
         
         self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
@@ -132,6 +140,9 @@ class EmojiCardViewController: UIViewController {
         
         let newVC = EmojiCardViewController()
         newVC.view.backgroundColor = card.suit.color()
+        if card.suit.color() == .black {
+            newVC.view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+        }
         
         // present it modally
         //self.present(newVC, animated: true, completion: nil)

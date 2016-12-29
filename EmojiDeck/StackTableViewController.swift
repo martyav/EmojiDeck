@@ -19,15 +19,11 @@ class StackTableViewController: UITableViewController {
         
         title = "Current Cards"
         self.tableView.separatorStyle = .none
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -41,12 +37,6 @@ class StackTableViewController: UITableViewController {
         let thisCard = EmojiCard.discardPile[indexPath.row]
         // Configure the cell...
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        //        if let thisParticularViewController = navigationController?.viewControllers[indexPath.row] as? EmptyDeckViewController {
-        //            cell.numberAndSuitLabel.text = "Current Deck"
-        //            cell.backgroundColor = .white
-        //            cell.numberAndSuitLabel.textColor = .black
-        //            cell.numberAndSuitLabel.font = UIFont(name: "Superclarendon-Black", size: 20)
-        //        }
         cell.numberAndSuitLabel.text = "\(thisCard.num.rawValue) \(thisCard.suit.symbol())"
         cell.numberAndSuitLabel.textColor = .white
         cell.numberAndSuitLabel.font = thisCard.topNumberLabel.font

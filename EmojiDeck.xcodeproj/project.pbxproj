@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D33DA0E61E1594710007BEEC /* UIView + Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33DA0E51E1594710007BEEC /* UIView + Gradient.swift */; };
 		D38358371E09D0E900337886 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38358361E09D0E900337886 /* AppDelegate.swift */; };
 		D383583E1E09D0E900337886 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D383583D1E09D0E900337886 /* Assets.xcassets */; };
 		D38358411E09D0E900337886 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D383583F1E09D0E900337886 /* LaunchScreen.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D33DA0E51E1594710007BEEC /* UIView + Gradient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView + Gradient.swift"; sourceTree = "<group>"; };
 		D38358331E09D0E900337886 /* EmojiDeck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmojiDeck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D38358361E09D0E900337886 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D383583D1E09D0E900337886 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		D38358481E09D1CC00337886 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				D33DA0E51E1594710007BEEC /* UIView + Gradient.swift */,
 				D3C93DF91E0C5C1600D5F5F8 /* Pips.swift */,
 				D38358591E09DF8D00337886 /* EmojiCard.swift */,
 				D390ADA41E0F68D6000BD148 /* CardTableViewCell.swift */,
@@ -179,6 +182,7 @@
 			files = (
 				D38358561E09DA5F00337886 /* Number.swift in Sources */,
 				D38358541E09D89400337886 /* Suit.swift in Sources */,
+				D33DA0E61E1594710007BEEC /* UIView + Gradient.swift in Sources */,
 				D38358581E09DAA000337886 /* EmojiCardViewController.swift in Sources */,
 				D38358371E09D0E900337886 /* AppDelegate.swift in Sources */,
 				D383585A1E09DF8D00337886 /* EmojiCard.swift in Sources */,
