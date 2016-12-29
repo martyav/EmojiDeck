@@ -19,7 +19,9 @@ class EmptyDeckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        EmojiCard.createFreshDeck()
+        if EmojiCard.cardDeck.count == 0 {
+            EmojiCard.createFreshDeck()
+        }
         
         view.backgroundColor = .white
         
@@ -46,24 +48,41 @@ class EmptyDeckViewController: UIViewController {
         
         self.removeOneButton.setTitle(" Remove One ", for: .disabled)
         self.removeOneButton.setTitleColor(.gray, for: .disabled)
+        self.removeOneButton.setTitleColor(.black, for: .normal)
         self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
         self.removeOneButton.layer.borderWidth = 2
         self.removeOneButton.layer.cornerRadius = 5
         self.removeOneButton.backgroundColor = .white
         
-        self.removeAllButton.setTitle(" Remove All ", for: .disabled)
-        self.removeOneButton.setTitleColor(.gray, for: .disabled)
+        self.removeAllButton.setTitle(" Remove All ", for: .normal)
+        self.removeAllButton.setTitleColor(.gray, for: .disabled)
+        self.removeAllButton.setTitleColor(.black, for: .normal)
         self.removeAllButton.layer.borderColor = UIColor.gray.cgColor
         self.removeAllButton.layer.borderWidth = 2
         self.removeAllButton.layer.cornerRadius = 5
         self.removeAllButton.backgroundColor = .white
         
-        self.showStackButton.setTitle(" Show Stack ", for: .disabled)
+        self.showStackButton.setTitle(" Show Stack ", for: .normal)
         self.showStackButton.setTitleColor(.gray, for: .disabled)
+        self.showStackButton.setTitleColor(.black, for: .normal)
         self.showStackButton.layer.borderColor = UIColor.gray.cgColor
         self.showStackButton.layer.borderWidth = 2
         self.showStackButton.layer.cornerRadius = 5
         self.showStackButton.backgroundColor = .white
+        
+        if EmojiCard.discardPile.count >= 1  {
+            showStackButton.isEnabled = true
+            removeOneButton.isEnabled = true
+            removeAllButton.isEnabled = true
+            
+            self.showStackButton.layer.borderColor = UIColor.black.cgColor
+            self.removeOneButton.layer.borderColor = UIColor.black.cgColor
+            self.removeAllButton.layer.borderColor = UIColor.black.cgColor
+        } else {
+            showStackButton.isEnabled = false
+            removeOneButton.isEnabled = false
+            removeAllButton.isEnabled = false
+        }
         
         self.view.addSubview(drawOneButton)
         self.view.addSubview(removeOneButton)
@@ -121,10 +140,25 @@ class EmptyDeckViewController: UIViewController {
     
     func didPressRemoveAllButton(sender: UIButton) {
         print("did press remove all")
+        let newVC = EmptyDeckViewController()
+        
+        navigationController?.viewControllers = [newVC]
+        
+        for card in EmojiCard.cardDeck {
+            card.canBeDrawn = true
+        }
+        
+        EmojiCard.discardPile = []
     }
     
     func didPressShowStackButton(sender: UIButton) {
         print("did press show stack")
+        
+        let destination = StackTableViewController()
+        if let navVC = self.navigationController {
+            print("nav found")
+            navVC.pushViewController(destination, animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
