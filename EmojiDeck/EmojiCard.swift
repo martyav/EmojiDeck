@@ -23,6 +23,17 @@ class EmojiCard: UIView, PlayingCard {
     var suit: Suit = .Ppl
     var num: Number = .ten
     var canBeDrawn: Bool = true
+    static var currentSizeOfDeck: Int {
+        get {
+            var currentlyactiveCards = 0
+            //guard EmojiCard.cardDeck.count != 0 else { return 0 }
+            
+            for card in EmojiCard.cardDeck where card.canBeDrawn {
+                currentlyactiveCards += 1
+            }
+            return currentlyactiveCards
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -157,25 +168,15 @@ class EmojiCard: UIView, PlayingCard {
         let randomIndex = Int(arc4random_uniform(UInt32(cardDeck.count)))
         let newCard = EmojiCard.cardDeck[randomIndex]
         
+        //let newCard = EmojiCard.cardDeck.last //<-- uncomment to go through cards one by one for debugging
+        
         if newCard.canBeDrawn {
-            discardPile.append(newCard)
             newCard.canBeDrawn = false
+            discardPile.append(newCard)
             return newCard
         } else {
             return drawACard()
         }
-        
-        //let newCard = EmojiCard.cardDeck.last <-- uncomment to go through cards one by one for debugging
     }
     
-    static func currentSizeOfDeck() -> Int {
-        var currentlyactiveCards = 0
-        
-        for card in cardDeck where card.canBeDrawn {
-            currentlyactiveCards += 1
-        }
-        
-        return currentlyactiveCards
-    }
-    
- }
+}

@@ -9,7 +9,7 @@
 import UIKit
 
 class EmojiCardViewController: UIViewController {
-
+    
     var drawOneButton = UIButton(type: UIButtonType.system)
     var removeOneButton = UIButton(type: UIButtonType.system)
     var showStackButton = UIButton(type: UIButtonType.system)
@@ -19,12 +19,12 @@ class EmojiCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("view did load")
-        print(EmojiCard.currentSizeOfDeck())
+        print(EmojiCard.currentSizeOfDeck)
         
         card.style()
         let leftOrRight: Double
         
-        if EmojiCard.discardPile.count % 2 == 0 {
+        if EmojiCard.currentSizeOfDeck % 2 == 0 {
             leftOrRight = -1.0
         } else {
             leftOrRight = 1.0
@@ -54,7 +54,7 @@ class EmojiCardViewController: UIViewController {
             self.showStackButton,
             self.removeOneButton,
             self.drawOneButton
-        ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         self.drawOneButton.setTitle(" Draw Card ", for: .normal)
         self.drawOneButton.setTitleColor(.black, for: .normal)
@@ -64,7 +64,7 @@ class EmojiCardViewController: UIViewController {
         self.drawOneButton.layer.cornerRadius = 5
         self.drawOneButton.backgroundColor = .white
         
-        if EmojiCard.currentSizeOfDeck() < 1 {
+        if EmojiCard.currentSizeOfDeck < 1 {
             self.drawOneButton.layer.borderColor = UIColor.gray.cgColor
             self.drawOneButton.isEnabled = false
         }
@@ -116,7 +116,7 @@ class EmojiCardViewController: UIViewController {
         self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
         self.removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
         self.showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
-
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -145,25 +145,36 @@ class EmojiCardViewController: UIViewController {
     
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
-        if EmojiCard.discardPile.index(of: self.card) == 0 {
+        if EmojiCard.discardPile.index(of: self.card) == 0  && EmojiCard.discardPile.count == 1 {
             print("you can't remove the only card")
             return
         }
         
-        let indexToRemove = Int(arc4random_uniform(UInt32(((navigationController?.viewControllers.count)!))))
+        let upperLimitForRandom = navigationController!.viewControllers.count
+        let indexToRemove = Int(arc4random_uniform(UInt32(upperLimitForRandom)))
         
-        if indexToRemove == EmojiCard.discardPile.index(of: self.card) {
-            print("we tried to remove the top card")
+        guard indexToRemove != 0 else { return didPressRemoveOneButton(sender: sender) }
+        
+        if let _ = navigationController?.viewControllers[indexToRemove] as? EmptyDeckViewController {
+            print("we tried to remove the empty deck vc")
             return didPressRemoveOneButton(sender: sender)
         }
-        if indexToRemove > 0 {
-            let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemove - 1])
-            EmojiCard.cardDeck[cardToReset!].canBeDrawn = true
-            EmojiCard.discardPile.remove(at: indexToRemove - 1)
-            navigationController?.viewControllers.remove(at: indexToRemove)
-            print("we removed \(EmojiCard.cardDeck[cardToReset!].topNumberLabel?.text) \(EmojiCard.cardDeck[cardToReset!].topSuitLabel?.text)")
+        
+        if EmojiCard.discardPile.index(of: self.card) == indexToRemove - 1 {
+            print("you can't remove the top card")
+            return didPressRemoveOneButton(sender: sender)
         }
         
+        let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemove - 1])
+        print("we removed \(EmojiCard.cardDeck[cardToReset!].topNumberLabel?.text) \(EmojiCard.cardDeck[cardToReset!].topSuitLabel?.text)")
+        EmojiCard.cardDeck[cardToReset!].canBeDrawn = true
+        EmojiCard.discardPile.remove(at: indexToRemove - 1)
+        navigationController?.viewControllers.remove(at: indexToRemove)
+        
+        if EmojiCard.currentSizeOfDeck >= 1 {
+            drawOneButton.isEnabled = true
+            drawOneButton.layer.borderColor = UIColor.black.cgColor
+        }
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
