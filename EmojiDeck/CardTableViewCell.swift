@@ -20,6 +20,7 @@ class CardTableViewCell: UITableViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         print("you shouldn't be running this if you're doing it programatically")
     }
     

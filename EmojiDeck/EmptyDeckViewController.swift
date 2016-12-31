@@ -107,7 +107,6 @@ class EmptyDeckViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         print("layout subviews!!!")
     }
     

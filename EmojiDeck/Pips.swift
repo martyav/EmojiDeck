@@ -25,7 +25,6 @@ class Pips: UIView {
     var tenSpot: UILabel!
     
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -114,6 +113,7 @@ class Pips: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         print("you shouldn't be running this if you're doing it programatically")
     }
     
