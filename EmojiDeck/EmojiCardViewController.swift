@@ -164,7 +164,6 @@ class EmojiCardViewController: UIViewController {
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
                 print("OK")
             }
-            
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
             
@@ -246,6 +245,15 @@ class EmojiCardViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         print("view did appear")
+        
+        if EmojiCard.currentSizeOfDeck == 0 {
+            let alertController = UIAlertController(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
