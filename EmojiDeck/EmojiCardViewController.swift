@@ -20,6 +20,10 @@ class EmojiCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if EmojiCard.currentSizeOfDeck == 39 {
+            navigationItem.hidesBackButton = true
+        }
+        
         let leftOrRight: Double
         let randomTwist: Double
         let angle: Double
