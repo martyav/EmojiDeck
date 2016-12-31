@@ -155,6 +155,15 @@ class EmojiCardViewController: UIViewController {
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
         guard EmojiCard.discardPile.index(of: self.card) != 0  && EmojiCard.discardPile.count != 1 else {
+            // from https://iosdevcenters.blogspot.com/2016/03/uialertcontroller-in-swift.html, updated for Swift3
+            let alertController = UIAlertController(title: "Hey there, pal!", message: "You can't remove the only card...", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            
             print("you can't remove the only card")
             return
         }
@@ -176,8 +185,9 @@ class EmojiCardViewController: UIViewController {
             return didPressRemoveOneButton(sender: sender)
         }
         
-        let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemove - 1])
-        print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
+        let indexToRemoveFromDiscards = indexToRemove - 1
+        let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemoveFromDiscards])
+        
         EmojiCard.cardDeck[cardToReset!].canBeDrawn = true
         EmojiCard.discardPile.remove(at: indexToRemove - 1)
         navigationController?.viewControllers.remove(at: indexToRemove)
@@ -185,6 +195,15 @@ class EmojiCardViewController: UIViewController {
         if EmojiCard.currentSizeOfDeck >= 1 {
             drawOneButton.isEnabled = true
             drawOneButton.layer.borderColor = UIColor.black.cgColor
+        
+        let alertController = UIAlertController(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("OK")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
         }
     }
     
@@ -199,6 +218,13 @@ class EmojiCardViewController: UIViewController {
         }
         
         EmojiCard.discardPile = []
+        
+        let alertController = UIAlertController(title: "Starting fresh!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+            print("OK")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     func didPressShowStackButton(sender: UIButton) {
