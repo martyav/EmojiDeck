@@ -14,6 +14,7 @@ class EmojiCardViewController: UIViewController {
     var removeOneButton = UIButton(type: UIButtonType.system)
     var showStackButton = UIButton(type: UIButtonType.system)
     var removeAllButton = UIButton(type: UIButtonType.system)
+    
     var card = EmojiCard.drawACard()
     
     override func viewDidLoad() {
@@ -26,16 +27,12 @@ class EmojiCardViewController: UIViewController {
         print("view did load")
         print(EmojiCard.currentSizeOfDeck)
         
-        card.style()
-        
-        if card.suit.color() != .black {
-            self.view.backgroundColor = card.suit.color()
-        } else {
-            self.view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
-        }
+        //MARK: - Card position & style
         
         card.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(card)
+        
+        card.style()
         
         card.layer.shadowColor = UIColor.black.cgColor
         card.layer.shadowOffset = CGSize(width: 5, height: 5)
@@ -55,6 +52,8 @@ class EmojiCardViewController: UIViewController {
         randomTwist = Double(arc4random_uniform(20))
         angle = (randomTwist/100) * leftOrRight
         card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+        
+        //MARK: - Button position & style
         
         let _ = [
             self.removeAllButton,
@@ -127,7 +126,6 @@ class EmojiCardViewController: UIViewController {
         self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
         self.removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
         self.showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -139,18 +137,15 @@ class EmojiCardViewController: UIViewController {
     func didPressDrawOneButton(sender: UIButton) {
         print("Did press draw button.")
         
-        // create a destination vc
-        
         let newVC = EmojiCardViewController()
-        newVC.view.backgroundColor = card.suit.color()
-        if card.suit.color() == .black {
+        print("we drew \(newVC.card.num.cornerLabel()) \(newVC.card.suit.symbol())")
+        
+        if card.suit.color() != .black {
+            newVC.view.backgroundColor = card.suit.color()
+        } else {
             newVC.view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
         }
         
-        // present it modally
-        //self.present(newVC, animated: true, completion: nil)
-        
-        // let nav handle it
         if let navVC = self.navigationController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
@@ -159,7 +154,7 @@ class EmojiCardViewController: UIViewController {
     
     func didPressRemoveOneButton(sender: UIButton) {
         print("did press remove one")
-        if EmojiCard.discardPile.index(of: self.card) == 0  && EmojiCard.discardPile.count == 1 {
+        guard EmojiCard.discardPile.index(of: self.card) != 0  && EmojiCard.discardPile.count != 1 else {
             print("you can't remove the only card")
             return
         }
@@ -167,7 +162,9 @@ class EmojiCardViewController: UIViewController {
         let upperLimitForRandom = navigationController!.viewControllers.count
         let indexToRemove = Int(arc4random_uniform(UInt32(upperLimitForRandom)))
         
-        guard indexToRemove != 0 else { return didPressRemoveOneButton(sender: sender) }
+        guard indexToRemove != 0 else {
+            return didPressRemoveOneButton(sender: sender)
+        }
         
         if let _ = navigationController?.viewControllers[indexToRemove] as? EmptyDeckViewController {
             print("we tried to remove the empty deck vc")
@@ -180,7 +177,7 @@ class EmojiCardViewController: UIViewController {
         }
         
         let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemove - 1])
-        print("we removed \(EmojiCard.cardDeck[cardToReset!].topNumberLabel?.text) \(EmojiCard.cardDeck[cardToReset!].topSuitLabel?.text)")
+        print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
         EmojiCard.cardDeck[cardToReset!].canBeDrawn = true
         EmojiCard.discardPile.remove(at: indexToRemove - 1)
         navigationController?.viewControllers.remove(at: indexToRemove)
@@ -228,5 +225,4 @@ class EmojiCardViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         print("view did disappear")
     }
-    
 }

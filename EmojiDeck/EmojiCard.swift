@@ -14,19 +14,25 @@ protocol PlayingCard {
 }
 
 class EmojiCard: UIView, PlayingCard {
-    var topNumberLabel: UILabel!
-    var topSuitLabel: UILabel!
-    var middleImage: Pips!
-    var bottomNumberLabel: UILabel!
-    var bottomSuitLabel: UILabel!
-    
     var suit: Suit = .Ppl
     var num: Number = .ten
     var canBeDrawn: Bool = true
+    
+    /*
+     NOTE
+     
+     cardDeck is always either 40 items long, or completely empty.
+     We track cards by looking at the cardDeck & seeing which cards are active, by calling currentSizeOfDeck.
+     The discardPile is for displaying cards in the tableview. 
+     Calling .count on our arrays and nav stack proved very buggy, with many index out of range errors.
+     A computed variable has proven much more accurate and stable.
+    */
+    
+    static var cardDeck: [EmojiCard] = []
+    static var discardPile: [EmojiCard] = []
     static var currentSizeOfDeck: Int {
         get {
             var currentlyactiveCards = 0
-            //guard EmojiCard.cardDeck.count != 0 else { return 0 }
             
             for card in EmojiCard.cardDeck where card.canBeDrawn {
                 currentlyactiveCards += 1
@@ -35,50 +41,60 @@ class EmojiCard: UIView, PlayingCard {
         }
     }
     
+    var topNumberLabel: UILabel!
+    var topSuitLabel: UILabel!
+    var middleImage: Pips!
+    var bottomNumberLabel: UILabel!
+    var bottomSuitLabel: UILabel!
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        
         super.init(coder: aDecoder)
+        print("you shouldn't be running this if you're doing it programatically")
     }
-    
-    static var cardDeck: [EmojiCard] = []
-    static var discardPile: [EmojiCard] = []
     
     func style() {
         translatesAutoresizingMaskIntoConstraints = false
         
-        layer.borderWidth = 2
-        layer.cornerRadius = 10
-        
-        layer.borderColor = UIColor.black.cgColor
-        backgroundColor = .white
-        
         widthAnchor.constraint(equalToConstant: 250).isActive = true
         heightAnchor.constraint(equalToConstant: 350).isActive = true
         
+        backgroundColor = .white
+        
+        layer.borderWidth = 2
+        layer.cornerRadius = 10
+        layer.borderColor = UIColor.black.cgColor
+        
         topNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         topSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        
         middleImage = Pips(frame: CGRect(x: 0, y: 0, width: 150, height: 250))
-        
         bottomNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         bottomSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         
+        topNumberLabel?.text = num.cornerLabel()
         topNumberLabel.font = UIFont(name: "Superclarendon-Black", size: 40)
+        topNumberLabel?.textColor = suit.color()
         topSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        topSuitLabel?.text = suit.symbol()
+        topSuitLabel?.textColor = suit.color()
         
+        bottomNumberLabel?.text = num.cornerLabel()
         bottomNumberLabel.font = UIFont(name: "Superclarendon-Black", size: 40)
+        bottomNumberLabel?.textColor = suit.color()
+        bottomSuitLabel?.text = suit.symbol()
         bottomSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        bottomSuitLabel?.textColor = suit.color()
         
+        // this bit turns the suit & num upside down -- the units are in radians
+        bottomNumberLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
+        bottomSuitLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
         
         addSubview(topNumberLabel)
         addSubview(topSuitLabel)
-        
         addSubview(middleImage)
-        
         addSubview(bottomNumberLabel)
         addSubview(bottomSuitLabel)
         
@@ -89,22 +105,6 @@ class EmojiCard: UIView, PlayingCard {
             bottomSuitLabel,
             middleImage
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
-        
-        topNumberLabel?.text = num.cornerLabel()
-        topSuitLabel?.text = suit.symbol()
-        
-        bottomNumberLabel?.text = num.cornerLabel()
-        bottomSuitLabel?.text = suit.symbol()
-        
-        topNumberLabel?.textColor = suit.color()
-        topSuitLabel?.textColor = suit.color()
-        
-        bottomNumberLabel?.textColor = suit.color()
-        bottomSuitLabel?.textColor = suit.color()
-        
-        // this bit turns the suit & num upside down -- the units are in radians
-        bottomNumberLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
-        bottomSuitLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
         
         let _ = [
             topNumberLabel,
@@ -135,29 +135,34 @@ class EmojiCard: UIView, PlayingCard {
         middleImage.fillWith(suit, num)
     }
     
+    /*
+     NOTE
+     
+     The below function is a work-around for our inits & our protocol not getting along.
+     Our init does not want any other parameters than the one it already has.
+     But our playingCard protocol must have a suit and a num fed in, or we can't make cards at all.
+     A new init, with suit & num parameters, would need to have a frame argument fed in to satisfy its super. Ugh.
+     So...
+     We give our cards dummy values in suit and num when we initialize them, to satisfy our protocol.
+     Then we individualize the cards when we call this function, so we don't have to mess around with any more inits.
+    */
+    
     static func makeNewCard(suit: Suit, num: Number) -> EmojiCard {
         let newCard = EmojiCard()
         
         newCard.suit = suit
         newCard.num = num
         
-        return newCard
-    }
-    
-    static func randomize() -> EmojiCard {
-        let suit = Suit(rawValue: Int(arc4random_uniform(4)))!
-        let num = Number(rawValue: Int(arc4random_uniform(10) + 1))!
-        
-        let newCard = makeNewCard(suit: suit, num: num)
+        print(newCard.num.cornerLabel(), newCard.suit.symbol())
         
         return newCard
     }
     
     static func createFreshDeck() {
-        for i in 0...3 {
-            for j in 1...10 {
-                let newSuit = Suit(rawValue: i)
-                let newNum = Number(rawValue: j)
+        for possibleSuit in 0...3 {
+            for possibleNumber in 1...10 {
+                let newSuit = Suit(rawValue: possibleSuit)
+                let newNum = Number(rawValue: possibleNumber)
                 let newCard = makeNewCard(suit: newSuit!, num: newNum!)
                 EmojiCard.cardDeck.append(newCard)
             }
@@ -168,8 +173,6 @@ class EmojiCard: UIView, PlayingCard {
         let randomIndex = Int(arc4random_uniform(UInt32(cardDeck.count)))
         let newCard = EmojiCard.cardDeck[randomIndex]
         
-        //let newCard = EmojiCard.cardDeck.last //<-- uncomment to go through cards one by one for debugging
-        
         if newCard.canBeDrawn {
             newCard.canBeDrawn = false
             discardPile.append(newCard)
@@ -178,5 +181,4 @@ class EmojiCard: UIView, PlayingCard {
             return drawACard()
         }
     }
-    
 }

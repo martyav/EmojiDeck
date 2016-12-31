@@ -25,6 +25,8 @@ class EmptyDeckViewController: UIViewController {
 
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
+        //MARK: - Label styling & position
+        
         emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(emptyDeckLabel)
         
@@ -37,6 +39,8 @@ class EmptyDeckViewController: UIViewController {
         emptyDeckLabel.layer.shadowOpacity = 1
         emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        //MARK: - Button styling & position
         
         let _ = [
             self.removeAllButton,
@@ -55,7 +59,6 @@ class EmptyDeckViewController: UIViewController {
         
         self.removeOneButton.setTitle(" Drop Card ", for: .disabled)
         self.removeOneButton.setTitleColor(.gray, for: .disabled)
-        self.removeOneButton.setTitleColor(.black, for: .normal)
         self.removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
         self.removeOneButton.layer.borderWidth = 2
@@ -64,7 +67,6 @@ class EmptyDeckViewController: UIViewController {
         
         self.removeAllButton.setTitle(" Remove All ", for: .normal)
         self.removeAllButton.setTitleColor(.gray, for: .disabled)
-        self.removeAllButton.setTitleColor(.black, for: .normal)
         self.removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.removeAllButton.layer.borderColor = UIColor.gray.cgColor
         self.removeAllButton.layer.borderWidth = 2
@@ -73,26 +75,16 @@ class EmptyDeckViewController: UIViewController {
         
         self.showStackButton.setTitle(" Show Stack ", for: .normal)
         self.showStackButton.setTitleColor(.gray, for: .disabled)
-        self.showStackButton.setTitleColor(.black, for: .normal)
         self.showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         self.showStackButton.layer.borderColor = UIColor.gray.cgColor
         self.showStackButton.layer.borderWidth = 2
         self.showStackButton.layer.cornerRadius = 5
         self.showStackButton.backgroundColor = .white
         
-        if (navigationController?.viewControllers.count)! > 1  {
-            showStackButton.isEnabled = true
-            removeOneButton.isEnabled = true
-            removeAllButton.isEnabled = true
-            
-            self.showStackButton.layer.borderColor = UIColor.black.cgColor
-            self.removeOneButton.layer.borderColor = UIColor.black.cgColor
-            self.removeAllButton.layer.borderColor = UIColor.black.cgColor
-        } else {
-            showStackButton.isEnabled = false
-            removeOneButton.isEnabled = false
-            removeAllButton.isEnabled = false
-        }
+        drawOneButton.isEnabled = true
+        showStackButton.isEnabled = false
+        removeOneButton.isEnabled = false
+        removeAllButton.isEnabled = false
         
         self.view.addSubview(drawOneButton)
         self.view.addSubview(removeOneButton)
@@ -123,6 +115,13 @@ class EmptyDeckViewController: UIViewController {
         print("Did press draw button.")
         
         let newVC = EmojiCardViewController()
+        print("we drew \(newVC.card.num.cornerLabel()) \(newVC.card.suit.symbol())")
+        
+        if newVC.card.suit.color() != .black {
+            newVC.view.backgroundColor = newVC.card.suit.color()
+        } else {
+            newVC.view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+        }
         
         if let navVC = self.navigationController {
             print("nav found")

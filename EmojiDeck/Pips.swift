@@ -30,25 +30,24 @@ class Pips: UIView {
         
         translatesAutoresizingMaskIntoConstraints = false
         
-        //layer.borderWidth = 5
-        //layer.cornerRadius = 15
-        
-        backgroundColor = .white
-        
         widthAnchor.constraint(equalToConstant: 150).isActive = true
         heightAnchor.constraint(equalToConstant: 250).isActive = true
         
+        backgroundColor = .white
+        
+        // top row
         topOneLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         topTwoLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         topThreeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
-        
+        // middle row
         midOneLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         midTwoLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         midThreeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
-        
+        // bottom row
         bottomOneLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         bottomTwoLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         bottomThreeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
+        // ten
         tenSpot = UILabel(frame: CGRect(x: 0, y: 0, width: 21, height: 21))
         
         let labelArr = [
@@ -114,33 +113,32 @@ class Pips: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        
         super.init(coder: aDecoder)
+        print("you shouldn't be running this if you're doing it programatically")
     }
     
     func fillWith(_ emoji: Suit, _ number: Number) {
         
         let emojiArray = [
-            // top
+            // top row
             topOneLabel,
             topTwoLabel,
             topThreeLabel,
-            // middle
+            // middle row
             midOneLabel,
             midTwoLabel,
             midThreeLabel,
-            // bottom
+            // bottom row
             bottomOneLabel,
             bottomTwoLabel,
             bottomThreeLabel,
+            // ten
             tenSpot
         ]
         
         for label in emojiArray {
             label?.text = emoji.symbol()
         }
-        
-        //layer.borderColor = emoji.color().cgColor
         
         switch number {
         case .one:

@@ -23,3 +23,13 @@ extension UIView {
         self.layer.insertSublayer(gradient, at: 0)
     }
 }
+
+/*
+ NOTES
+ 
+ location is a decimal number.
+ it represents the starting postion for a color.
+ each item inside the locations array indicates the starting point for a color in the colors array.
+ the top of the frame is 0, and the bottom of the frame is 1.0.
+ colors: [.white, .black], locations: [0.0, 1.0] indicates a gradient running from white to black
+*/
