@@ -18,27 +18,19 @@ class EmojiCardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let leftOrRight: Double
+        let randomTwist: Double
+        let angle: Double
+        
         print("view did load")
         print(EmojiCard.currentSizeOfDeck)
         
         card.style()
-        let leftOrRight: Double
         
-        if EmojiCard.currentSizeOfDeck % 2 == 0 {
-            leftOrRight = -1.0
+        if card.suit.color() != .black {
+            self.view.backgroundColor = card.suit.color()
         } else {
-            leftOrRight = 1.0
-        }
-        
-        let randomTwist = Double(arc4random_uniform(20))
-        
-        let angle = (randomTwist/100) * leftOrRight
-        
-        card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
-        
-        self.view.backgroundColor = card.suit.color()
-        
-        if card.suit.color() == .black {
             self.view.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
         }
         
@@ -52,6 +44,17 @@ class EmojiCardViewController: UIViewController {
         
         card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         card.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        // gives card a jaunty tilt
+        if EmojiCard.currentSizeOfDeck % 2 == 0 {
+            leftOrRight = -1.0
+        } else {
+            leftOrRight = 1.0
+        }
+        
+        randomTwist = Double(arc4random_uniform(20))
+        angle = (randomTwist/100) * leftOrRight
+        card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
         
         let _ = [
             self.removeAllButton,

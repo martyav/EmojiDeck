@@ -111,10 +111,6 @@ class EmptyDeckViewController: UIViewController {
             ].map{ $0.isActive = true }
         
         self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
-        self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
-        self.removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
-        self.showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -126,70 +122,11 @@ class EmptyDeckViewController: UIViewController {
     func didPressDrawOneButton(sender: UIButton) {
         print("Did press draw button.")
         
-        // create a destination vc
-        
         let newVC = EmojiCardViewController()
         
-        // present it modally
-        //self.present(newVC, animated: true, completion: nil)
-        
-        // let nav handle it
         if let navVC = self.navigationController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
-        }
-    }
-    
-    func didPressRemoveOneButton(sender: UIButton) {
-        // commenting this in will make remove one remove top cards even on the emojivc's
-//        print("did press remove one")
-//        if EmojiCard.discardPile.count == 1 {
-//            print("you can't remove the only card")
-//            return
-//        }
-//        
-//        let upperLimitForRandom = navigationController!.viewControllers.count
-//        let indexToRemove = Int(arc4random_uniform(UInt32(upperLimitForRandom)))
-//        
-//        guard indexToRemove != 0 else { return didPressRemoveOneButton(sender: sender) }
-//        
-//        if let _ = navigationController?.viewControllers[indexToRemove] as? EmptyDeckViewController {
-//            print("we tried to remove the empty deck vc")
-//            return didPressRemoveOneButton(sender: sender)
-//        }
-//        
-//        let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemove - 1])
-//        print("we removed \(EmojiCard.cardDeck[cardToReset!].topNumberLabel?.text) \(EmojiCard.cardDeck[cardToReset!].topSuitLabel?.text)")
-//        EmojiCard.cardDeck[cardToReset!].canBeDrawn = true
-//        EmojiCard.discardPile.remove(at: indexToRemove - 1)
-//        navigationController?.viewControllers.remove(at: indexToRemove)
-//        
-//        if EmojiCard.currentSizeOfDeck >= 1 {
-//            drawOneButton.isEnabled = true
-//            drawOneButton.layer.borderColor = UIColor.black.cgColor
-//        }
-    }
-    
-    func didPressRemoveAllButton(sender: UIButton) {
-        print("did press remove all")
-        let newVC = EmptyDeckViewController()
-        
-        navigationController?.viewControllers = [newVC]
-        
-        for card in EmojiCard.cardDeck {
-            card.canBeDrawn = true
-        }
-        
-        EmojiCard.discardPile = []
-    }
-    
-    func didPressShowStackButton(sender: UIButton) {
-        print("did press show stack")
-        
-        let destination = StackTableViewController()
-        if let navVC = self.navigationController {
-            print("nav found")
-            navVC.pushViewController(destination, animated: true)
         }
     }
     
