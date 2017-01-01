@@ -20,6 +20,11 @@ class StackTableViewController: UITableViewController {
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: cellReuseIdentifier)
         
         self.tableView.separatorStyle = .none
+        
+        let sorted = EmojiCard.discardPile.sorted(by: { $0.num.rawValue < $1.num.rawValue })
+        for item in sorted {
+            print(item.num.cornerLabel(),item.suit.symbol())
+        }
     }
     
     // MARK: - Table view data source

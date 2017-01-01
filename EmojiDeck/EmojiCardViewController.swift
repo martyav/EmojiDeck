@@ -20,7 +20,7 @@ class EmojiCardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if EmojiCard.currentSizeOfDeck == 39 {
+        if EmojiCard.currentSizeOfDeck == EmojiCard.cardDeck.count - 1 {
             navigationItem.hidesBackButton = true
         }
         
@@ -198,15 +198,15 @@ class EmojiCardViewController: UIViewController {
         if EmojiCard.currentSizeOfDeck >= 1 {
             drawOneButton.isEnabled = true
             drawOneButton.layer.borderColor = UIColor.black.cgColor
-        
-        let alertController = UIAlertController(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            print("OK")
-        }
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-        
-        print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
+            
+            let alertController = UIAlertController(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", preferredStyle: UIAlertControllerStyle.alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+                print("OK")
+            }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+            print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
         }
     }
     
@@ -262,5 +262,20 @@ class EmojiCardViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         print("view did disappear")
+    }
+    
+    override func viewWillLayoutSubviews() {
+        // Step 1: Find our size.
+        let size = view.bounds.size
+        
+        // Step 2: Decide what design to use, based on our rules.
+        let useWideDesign = size.width > size.height
+        
+        // Step 3: Apply the design to the UI.
+        if useWideDesign {
+            card.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        } else {
+            card.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        }
     }
 }
