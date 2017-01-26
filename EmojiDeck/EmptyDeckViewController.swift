@@ -15,14 +15,64 @@ class EmptyDeckViewController: UIViewController {
     var showStackButton = UIButton(type: UIButtonType.system)
     var removeAllButton = UIButton(type: UIButtonType.system)
     var emptyDeckLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
+    var splashScreen: UIView!
+    var splashIcon: UILabel!
+    let iconArray = ["😎","🚲","😼","🔌"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        splashScreen = UIView(frame: .zero)
+        self.view.addSubview(splashScreen)
+        splashScreen.backgroundColor = .white
+        splashScreen.translatesAutoresizingMaskIntoConstraints = false
+        splashScreen.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        splashScreen.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        splashScreen.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        splashScreen.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
+        splashIcon = UILabel(frame: .zero)
+        self.view.addSubview(splashIcon)
+        splashIcon.translatesAutoresizingMaskIntoConstraints = false
+        splashIcon.centerXAnchor.constraint(equalTo: splashScreen.centerXAnchor).isActive = true
+        splashIcon.centerYAnchor.constraint(equalTo: splashScreen.centerYAnchor).isActive = true
+        splashIcon.widthAnchor.constraint(equalTo: splashScreen.widthAnchor).isActive = true
+        splashIcon.heightAnchor.constraint(equalTo: splashScreen.heightAnchor).isActive = true
+        
+        splashIcon.text = "999"
+        splashIcon.font = UIFont.boldSystemFont(ofSize: 144)
+        splashIcon.textAlignment = .center
+        
+        func animateIcon() {
+            let animator = UIViewPropertyAnimator(duration: 1.0, curve: .linear) {
+                self.splashIcon.layoutIfNeeded()
+            }
+            
+            animator.addAnimations ({
+                self.splashIcon.text = self.iconArray[0]
+            }, delayFactor: 0)
+            
+            animator.addAnimations ({
+                self.splashIcon.text = self.iconArray[1]
+            }, delayFactor: 0.25)
+            
+            animator.addAnimations ({
+                self.splashIcon.text = self.iconArray[2]
+            }, delayFactor: 0.5)
+            
+            animator.addAnimations ({
+                self.splashIcon.text = self.iconArray[3]
+            }, delayFactor: 0.75)
+            
+            animator.startAnimation()
+        }
+        
+        animateIcon()
+        
         if EmojiCard.cardDeck.count == 0 {
             EmojiCard.createFreshDeck()
         }
-
+        
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
         //MARK: - Label styling & position

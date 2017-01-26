@@ -264,11 +264,9 @@ class EmojiCardViewController: UIViewController {
         print("view did disappear")
     }
     
-    override func viewWillLayoutSubviews() {
-        // Step 1: Find our size.
-        let size = view.bounds.size
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         
-        // Step 2: Decide what design to use, based on our rules.
         let useWideDesign = size.width > size.height
         
         // Step 3: Apply the design to the UI.
@@ -277,5 +275,11 @@ class EmojiCardViewController: UIViewController {
         } else {
             card.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }
+
+        
+        coordinator.animate(alongsideTransition: { (context) -> Void in
+            // Place code here to perform animations during the rotation.
+            // You can pass nil for this closure if not necessary.
+        })
     }
 }
