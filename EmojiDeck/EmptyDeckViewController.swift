@@ -25,8 +25,7 @@ class EmptyDeckViewController: UIViewController {
         
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
-        run(functions: [layoutEmptyLabel, layoutButtons])
-        run(functions: [styleEmptyLabel, styleButtons])
+        run(functions: [layoutEmptyLabel, layoutButtons, styleEmptyLabel, styleButtons])
         
         addButtonFunctionality()
     }
