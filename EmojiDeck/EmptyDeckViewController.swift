@@ -11,10 +11,11 @@ import UIKit
 class EmptyDeckViewController: UIViewController {
     
     var emptyDeckLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
-    var drawOneButton = UIButton(type: UIButtonType.system)
-    var removeOneButton = UIButton(type: UIButtonType.system)
-    var showStackButton = UIButton(type: UIButtonType.system)
-    var removeAllButton = UIButton(type: UIButtonType.system)
+    
+    var drawOneButton: ControlButton!
+    var removeOneButton: ControlButton!
+    var showStackButton: ControlButton!
+    var removeAllButton: ControlButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +26,15 @@ class EmptyDeckViewController: UIViewController {
         
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
-        run(functions: [layoutEmptyLabel, layoutButtons, styleEmptyLabel, styleButtons])
+        generateUI([layoutEmptyLabel, layoutButtons, styleEmptyLabel, styleButtons])
+        enable(buttons: [
+                drawOneButton: true,
+                showStackButton: false,
+                removeOneButton: false,
+                removeAllButton: false
+            ])
         
-        addButtonFunctionality()
+        self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
     }
     
     func layoutEmptyLabel() {
@@ -44,17 +51,24 @@ class EmptyDeckViewController: UIViewController {
     
     func layoutButtons() {
         
-        view.addSubview(drawOneButton)
-        view.addSubview(removeOneButton)
-        view.addSubview(removeAllButton)
-        view.addSubview(showStackButton)
+        drawOneButton = ControlButton()
+        removeOneButton = ControlButton()
+        removeAllButton = ControlButton()
+        showStackButton = ControlButton()
         
-        _ = [
-            removeAllButton,
-            showStackButton,
+        addToView([
+            drawOneButton,
             removeOneButton,
-            drawOneButton
-            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+            showStackButton,
+            removeAllButton
+            ], view: self.view)
+        
+        allowProgrammableConstraints([
+            drawOneButton,
+            removeOneButton,
+            showStackButton,
+            removeAllButton
+            ])
         
         _ = [
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -72,36 +86,15 @@ class EmptyDeckViewController: UIViewController {
     func styleButtons() {
         
         drawOneButton.setTitle(" Draw Card ", for: .normal)
-        drawOneButton.setTitleColor(.black, for: .normal)
-        drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        drawOneButton.layer.borderColor = UIColor.black.cgColor
-        drawOneButton.layer.borderWidth = 2
-        drawOneButton.layer.cornerRadius = 5
-        drawOneButton.backgroundColor = .white
         
         removeOneButton.setTitle(" Drop Card ", for: .disabled)
-        removeOneButton.setTitleColor(.gray, for: .disabled)
-        removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         removeOneButton.layer.borderColor = UIColor.gray.cgColor
-        removeOneButton.layer.borderWidth = 2
-        removeOneButton.layer.cornerRadius = 5
-        removeOneButton.backgroundColor = .white
         
         removeAllButton.setTitle(" Remove All ", for: .normal)
-        removeAllButton.setTitleColor(.gray, for: .disabled)
-        removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         removeAllButton.layer.borderColor = UIColor.gray.cgColor
-        removeAllButton.layer.borderWidth = 2
-        removeAllButton.layer.cornerRadius = 5
-        removeAllButton.backgroundColor = .white
         
         showStackButton.setTitle(" Show Stack ", for: .normal)
-        showStackButton.setTitleColor(.gray, for: .disabled)
-        showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
         showStackButton.layer.borderColor = UIColor.gray.cgColor
-        showStackButton.layer.borderWidth = 2
-        showStackButton.layer.cornerRadius = 5
-        showStackButton.backgroundColor = .white
     }
     
     func styleEmptyLabel() {
@@ -113,23 +106,6 @@ class EmptyDeckViewController: UIViewController {
         emptyDeckLabel.layer.shadowOffset = CGSize(width: 5, height: 5)
         emptyDeckLabel.layer.shadowRadius = 35
         emptyDeckLabel.layer.shadowOpacity = 1
-        
-    }
-    
-    func run(functions: [() -> ()]) {
-        for function in functions {
-            function()
-        }
-    }
-    
-    func addButtonFunctionality() {
-        
-        drawOneButton.isEnabled = true
-        showStackButton.isEnabled = false
-        removeOneButton.isEnabled = false
-        removeAllButton.isEnabled = false
-        
-        self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         
     }
     
