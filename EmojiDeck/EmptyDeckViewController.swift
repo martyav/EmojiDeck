@@ -22,63 +22,18 @@ class EmptyDeckViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        splashScreen = UIView(frame: .zero)
-        self.view.addSubview(splashScreen)
-        splashScreen.backgroundColor = .white
-        splashScreen.translatesAutoresizingMaskIntoConstraints = false
-        splashScreen.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        splashScreen.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        splashScreen.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        splashScreen.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
-        
-        splashIcon = UILabel(frame: .zero)
-        self.view.addSubview(splashIcon)
-        splashIcon.translatesAutoresizingMaskIntoConstraints = false
-        splashIcon.centerXAnchor.constraint(equalTo: splashScreen.centerXAnchor).isActive = true
-        splashIcon.centerYAnchor.constraint(equalTo: splashScreen.centerYAnchor).isActive = true
-        splashIcon.widthAnchor.constraint(equalTo: splashScreen.widthAnchor).isActive = true
-        splashIcon.heightAnchor.constraint(equalTo: splashScreen.heightAnchor).isActive = true
-        
-        splashIcon.text = "999"
-        splashIcon.font = UIFont.boldSystemFont(ofSize: 144)
-        splashIcon.textAlignment = .center
-        
-        func animateIcon() {
-            let animator = UIViewPropertyAnimator(duration: 1.0, curve: .linear) {
-                self.splashIcon.layoutIfNeeded()
-            }
-            
-            animator.addAnimations ({
-                self.splashIcon.text = self.iconArray[0]
-            }, delayFactor: 0)
-            
-            animator.addAnimations ({
-                self.splashIcon.text = self.iconArray[1]
-            }, delayFactor: 0.25)
-            
-            animator.addAnimations ({
-                self.splashIcon.text = self.iconArray[2]
-            }, delayFactor: 0.5)
-            
-            animator.addAnimations ({
-                self.splashIcon.text = self.iconArray[3]
-            }, delayFactor: 0.75)
-            
-            animator.startAnimation()
-        }
-        
-        animateIcon()
-        
         if EmojiCard.cardDeck.count == 0 {
             EmojiCard.createFreshDeck()
         }
         
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
-        //MARK: - Label styling & position
-        
-        emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(emptyDeckLabel)
+        layoutSubviews()
+        styleSubviews()
+        addButtonFunctionality()
+    }
+    
+    func styleSubviews() {
         
         emptyDeckLabel.text = "Start Deck!"
         emptyDeckLabel.font = UIFont(name: "Superclarendon-Black", size: 30)
@@ -87,61 +42,58 @@ class EmptyDeckViewController: UIViewController {
         emptyDeckLabel.layer.shadowOffset = CGSize(width: 5, height: 5)
         emptyDeckLabel.layer.shadowRadius = 35
         emptyDeckLabel.layer.shadowOpacity = 1
-        emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        //MARK: - Button styling & position
+        drawOneButton.setTitle(" Draw Card ", for: .normal)
+        drawOneButton.setTitleColor(.black, for: .normal)
+        drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
+        drawOneButton.layer.borderColor = UIColor.black.cgColor
+        drawOneButton.layer.borderWidth = 2
+        drawOneButton.layer.cornerRadius = 5
+        drawOneButton.backgroundColor = .white
         
-        let _ = [
-            self.removeAllButton,
-            self.showStackButton,
-            self.removeOneButton,
-            self.drawOneButton
+        removeOneButton.setTitle(" Drop Card ", for: .disabled)
+        removeOneButton.setTitleColor(.gray, for: .disabled)
+        removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
+        removeOneButton.layer.borderColor = UIColor.gray.cgColor
+        removeOneButton.layer.borderWidth = 2
+        removeOneButton.layer.cornerRadius = 5
+        removeOneButton.backgroundColor = .white
+        
+        removeAllButton.setTitle(" Remove All ", for: .normal)
+        removeAllButton.setTitleColor(.gray, for: .disabled)
+        removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
+        removeAllButton.layer.borderColor = UIColor.gray.cgColor
+        removeAllButton.layer.borderWidth = 2
+        removeAllButton.layer.cornerRadius = 5
+        removeAllButton.backgroundColor = .white
+        
+        showStackButton.setTitle(" Show Stack ", for: .normal)
+        showStackButton.setTitleColor(.gray, for: .disabled)
+        showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
+        showStackButton.layer.borderColor = UIColor.gray.cgColor
+        showStackButton.layer.borderWidth = 2
+        showStackButton.layer.cornerRadius = 5
+        showStackButton.backgroundColor = .white
+    }
+    
+    func layoutSubviews() {
+        view.addSubview(emptyDeckLabel)
+        view.addSubview(drawOneButton)
+        view.addSubview(removeOneButton)
+        view.addSubview(removeAllButton)
+        view.addSubview(showStackButton)
+        
+        _ = [
+            emptyDeckLabel,
+            removeAllButton,
+            showStackButton,
+            removeOneButton,
+            drawOneButton
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        self.drawOneButton.setTitle(" Draw Card ", for: .normal)
-        self.drawOneButton.setTitleColor(.black, for: .normal)
-        self.drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.drawOneButton.layer.borderColor = UIColor.black.cgColor
-        self.drawOneButton.layer.borderWidth = 2
-        self.drawOneButton.layer.cornerRadius = 5
-        self.drawOneButton.backgroundColor = .white
-        
-        self.removeOneButton.setTitle(" Drop Card ", for: .disabled)
-        self.removeOneButton.setTitleColor(.gray, for: .disabled)
-        self.removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
-        self.removeOneButton.layer.borderWidth = 2
-        self.removeOneButton.layer.cornerRadius = 5
-        self.removeOneButton.backgroundColor = .white
-        
-        self.removeAllButton.setTitle(" Remove All ", for: .normal)
-        self.removeAllButton.setTitleColor(.gray, for: .disabled)
-        self.removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.removeAllButton.layer.borderColor = UIColor.gray.cgColor
-        self.removeAllButton.layer.borderWidth = 2
-        self.removeAllButton.layer.cornerRadius = 5
-        self.removeAllButton.backgroundColor = .white
-        
-        self.showStackButton.setTitle(" Show Stack ", for: .normal)
-        self.showStackButton.setTitleColor(.gray, for: .disabled)
-        self.showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.showStackButton.layer.borderColor = UIColor.gray.cgColor
-        self.showStackButton.layer.borderWidth = 2
-        self.showStackButton.layer.cornerRadius = 5
-        self.showStackButton.backgroundColor = .white
-        
-        drawOneButton.isEnabled = true
-        showStackButton.isEnabled = false
-        removeOneButton.isEnabled = false
-        removeAllButton.isEnabled = false
-        
-        self.view.addSubview(drawOneButton)
-        self.view.addSubview(removeOneButton)
-        self.view.addSubview(removeAllButton)
-        self.view.addSubview(showStackButton)
-        
-        let _ = [
+        _ = [
+            emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -151,16 +103,22 @@ class EmptyDeckViewController: UIViewController {
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
             ].map{ $0.isActive = true }
-        
-        self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
+
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        print("layout subviews!!!")
+    func addButtonFunctionality() {
+        
+        drawOneButton.isEnabled = true
+        showStackButton.isEnabled = false
+        removeOneButton.isEnabled = false
+        removeAllButton.isEnabled = false
+        
+        self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
+    
     }
     
     func didPressDrawOneButton(sender: UIButton) {
+    
         print("Did press draw button.")
         
         let newVC = EmojiCardViewController()
@@ -176,21 +134,6 @@ class EmptyDeckViewController: UIViewController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
         }
-    }
     
-    override func viewWillAppear(_ animated: Bool) {
-        print("view will appear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("view did appear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        print("view will disappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("view did disappear")
     }
 }
