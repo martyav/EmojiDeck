@@ -10,14 +10,11 @@ import UIKit
 
 class EmptyDeckViewController: UIViewController {
     
+    var emptyDeckLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
     var drawOneButton = UIButton(type: UIButtonType.system)
     var removeOneButton = UIButton(type: UIButtonType.system)
     var showStackButton = UIButton(type: UIButtonType.system)
     var removeAllButton = UIButton(type: UIButtonType.system)
-    var emptyDeckLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 350, height: 350))
-    var splashScreen: UIView!
-    var splashIcon: UILabel!
-    let iconArray = ["😎","🚲","😼","🔌"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,20 +25,52 @@ class EmptyDeckViewController: UIViewController {
         
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])
         
-        layoutSubviews()
-        styleSubviews()
+        run(functions: [layoutEmptyLabel, layoutButtons])
+        run(functions: [styleEmptyLabel, styleButtons])
+        
         addButtonFunctionality()
     }
     
-    func styleSubviews() {
+    func layoutEmptyLabel() {
         
-        emptyDeckLabel.text = "Start Deck!"
-        emptyDeckLabel.font = UIFont(name: "Superclarendon-Black", size: 30)
-        emptyDeckLabel.textColor = .white
-        emptyDeckLabel.layer.shadowColor = UIColor.white.cgColor
-        emptyDeckLabel.layer.shadowOffset = CGSize(width: 5, height: 5)
-        emptyDeckLabel.layer.shadowRadius = 35
-        emptyDeckLabel.layer.shadowOpacity = 1
+        view.addSubview(emptyDeckLabel)
+        
+        emptyDeckLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        _ = [
+            emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            ].map{ $0.isActive = true }
+    }
+    
+    func layoutButtons() {
+        
+        view.addSubview(drawOneButton)
+        view.addSubview(removeOneButton)
+        view.addSubview(removeAllButton)
+        view.addSubview(showStackButton)
+        
+        _ = [
+            removeAllButton,
+            showStackButton,
+            removeOneButton,
+            drawOneButton
+            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        
+        _ = [
+            removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -48),
+            removeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
+            showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
+            ].map{ $0.isActive = true }
+        
+    }
+    
+    func styleButtons() {
         
         drawOneButton.setTitle(" Draw Card ", for: .normal)
         drawOneButton.setTitleColor(.black, for: .normal)
@@ -76,34 +105,22 @@ class EmptyDeckViewController: UIViewController {
         showStackButton.backgroundColor = .white
     }
     
-    func layoutSubviews() {
-        view.addSubview(emptyDeckLabel)
-        view.addSubview(drawOneButton)
-        view.addSubview(removeOneButton)
-        view.addSubview(removeAllButton)
-        view.addSubview(showStackButton)
+    func styleEmptyLabel() {
         
-        _ = [
-            emptyDeckLabel,
-            removeAllButton,
-            showStackButton,
-            removeOneButton,
-            drawOneButton
-            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        emptyDeckLabel.text = "Start Deck!"
+        emptyDeckLabel.font = UIFont(name: "Superclarendon-Black", size: 30)
+        emptyDeckLabel.textColor = .white
+        emptyDeckLabel.layer.shadowColor = UIColor.white.cgColor
+        emptyDeckLabel.layer.shadowOffset = CGSize(width: 5, height: 5)
+        emptyDeckLabel.layer.shadowRadius = 35
+        emptyDeckLabel.layer.shadowOpacity = 1
         
-        _ = [
-            emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-            drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            drawOneButton.bottomAnchor.constraint(equalTo: removeOneButton.bottomAnchor, constant: -48),
-            removeAllButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
-            showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
-            ].map{ $0.isActive = true }
-
+    }
+    
+    func run(functions: [() -> ()]) {
+        for function in functions {
+            function()
+        }
     }
     
     func addButtonFunctionality() {
@@ -114,11 +131,11 @@ class EmptyDeckViewController: UIViewController {
         removeAllButton.isEnabled = false
         
         self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
-    
+        
     }
     
     func didPressDrawOneButton(sender: UIButton) {
-    
+        
         print("Did press draw button.")
         
         let newVC = EmojiCardViewController()
@@ -134,6 +151,7 @@ class EmptyDeckViewController: UIViewController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
         }
-    
+        
     }
+    
 }
