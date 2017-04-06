@@ -10,10 +10,10 @@ import UIKit
 
 class EmojiCardViewController: UIViewController {
     
-    var drawOneButton = UIButton(type: UIButtonType.system)
-    var removeOneButton = UIButton(type: UIButtonType.system)
-    var showStackButton = UIButton(type: UIButtonType.system)
-    var removeAllButton = UIButton(type: UIButtonType.system)
+    var drawOneButton: ControlButton!
+    var removeOneButton: ControlButton!
+    var showStackButton: ControlButton!
+    var removeAllButton: ControlButton!
     
     var card = EmojiCard.drawACard()
     
@@ -57,65 +57,36 @@ class EmojiCardViewController: UIViewController {
         angle = (randomTwist/100) * leftOrRight
         card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
         
-        //MARK: - Button position & style
+        drawOneButton = ControlButton()
+        removeOneButton = ControlButton()
+        removeAllButton = ControlButton()
+        showStackButton = ControlButton()
         
-        let _ = [
-            self.removeAllButton,
-            self.showStackButton,
-            self.removeOneButton,
-            self.drawOneButton
-            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        addToView([
+            drawOneButton,
+            removeOneButton,
+            showStackButton,
+            removeAllButton
+            ], view: self.view)
         
-        self.drawOneButton.setTitle(" Draw Card ", for: .normal)
-        self.drawOneButton.setTitleColor(.black, for: .normal)
-        self.drawOneButton.setTitleColor(.gray, for: .disabled)
-        self.drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.drawOneButton.layer.borderColor = UIColor.black.cgColor
-        self.drawOneButton.layer.borderWidth = 2
-        self.drawOneButton.layer.cornerRadius = 5
-        self.drawOneButton.backgroundColor = .white
+        allowProgrammableConstraints([
+            drawOneButton,
+            removeOneButton,
+            showStackButton,
+            removeAllButton
+            ])
         
         if EmojiCard.currentSizeOfDeck < 1 {
             self.drawOneButton.layer.borderColor = UIColor.gray.cgColor
             self.drawOneButton.isEnabled = false
         }
         
-        self.removeOneButton.setTitle(" Drop Card ", for: .normal)
-        self.removeOneButton.setTitleColor(.black, for: .normal)
-        self.removeOneButton.setTitleColor(.gray, for: .disabled)
-        self.removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.removeOneButton.layer.borderColor = UIColor.black.cgColor
-        self.removeOneButton.layer.borderWidth = 2
-        self.removeOneButton.layer.cornerRadius = 5
-        self.removeOneButton.backgroundColor = .white
-        
         if EmojiCard.discardPile.count == 0 {
             self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
             self.removeOneButton.isEnabled = false
         }
         
-        self.removeAllButton.setTitle(" Remove All ", for: .normal)
-        self.removeAllButton.setTitleColor(.black, for: .normal)
-        self.removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.removeAllButton.layer.borderColor = UIColor.black.cgColor
-        self.removeAllButton.layer.borderWidth = 2
-        self.removeAllButton.layer.cornerRadius = 5
-        self.removeAllButton.backgroundColor = .white
-        
-        self.showStackButton.setTitle(" Show Stack ", for: .normal)
-        self.showStackButton.setTitleColor(.black, for: .normal)
-        self.showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.showStackButton.layer.borderColor = UIColor.black.cgColor
-        self.showStackButton.layer.borderWidth = 2
-        self.showStackButton.layer.cornerRadius = 5
-        self.showStackButton.backgroundColor = .white
-        
-        self.view.addSubview(drawOneButton)
-        self.view.addSubview(removeOneButton)
-        self.view.addSubview(removeAllButton)
-        self.view.addSubview(showStackButton)
-        
-        let _ = [
+        _ = [
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -125,6 +96,11 @@ class EmojiCardViewController: UIViewController {
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
             ].map{ $0.isActive = true }
+        
+        drawOneButton.setTitle(" Draw Card ", for: .normal)
+        removeOneButton.setTitle(" Drop Card ", for: .normal)
+        removeAllButton.setTitle(" Remove All ", for: .normal)
+        showStackButton.setTitle(" Show Stack ", for: .normal)
         
         self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
