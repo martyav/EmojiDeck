@@ -24,38 +24,29 @@ class EmojiCardViewController: UIViewController {
             navigationItem.hidesBackButton = true
         }
         
-        let leftOrRight: Double
-        let randomTwist: Double
-        let angle: Double
-        
-        print("view did load")
         print(EmojiCard.currentSizeOfDeck)
         
         //MARK: - Card position & style
         
-        card.translatesAutoresizingMaskIntoConstraints = false
+        generateUI([layoutCard, card.style, card.tilt, layoutButtons, canWeDraw])
+        
+        drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
+        removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
+        removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
+        showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
+    }
+    
+    func layoutCard() {
         self.view.addSubview(card)
         
-        card.style()
+        card.translatesAutoresizingMaskIntoConstraints = false
         
-        card.layer.shadowColor = UIColor.black.cgColor
-        card.layer.shadowOffset = CGSize(width: 5, height: 5)
-        card.layer.shadowRadius = 20
-        card.layer.shadowOpacity = 1
-        
-        card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        card.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        // gives card a jaunty tilt
-        if EmojiCard.currentSizeOfDeck % 2 == 0 {
-            leftOrRight = -1.0
-        } else {
-            leftOrRight = 1.0
-        }
-        
-        randomTwist = Double(arc4random_uniform(20))
-        angle = (randomTwist/100) * leftOrRight
-        card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+        _ = [
+            card.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            card.centerYAnchor.constraint(equalTo: view.centerYAnchor)].map { $0.isActive = true }
+    }
+    
+    func layoutButtons() {
         
         drawOneButton = ControlButton()
         removeOneButton = ControlButton()
@@ -67,24 +58,14 @@ class EmojiCardViewController: UIViewController {
             removeOneButton,
             showStackButton,
             removeAllButton
-            ], view: self.view)
+        ], view: self.view)
         
         allowProgrammableConstraints([
             drawOneButton,
             removeOneButton,
             showStackButton,
             removeAllButton
-            ])
-        
-        if EmojiCard.currentSizeOfDeck < 1 {
-            drawOneButton.layer.borderColor = UIColor.gray.cgColor
-            drawOneButton.isEnabled = false
-        }
-        
-        if EmojiCard.discardPile.count == 0 {
-            removeOneButton.layer.borderColor = UIColor.gray.cgColor
-            removeOneButton.isEnabled = false
-        }
+        ])
         
         _ = [
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -95,17 +76,27 @@ class EmojiCardViewController: UIViewController {
             removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
-            ].map{ $0.isActive = true }
+        ].map{ $0.isActive = true }
         
         drawOneButton.setTitle(" Draw Card ", for: .normal)
         removeOneButton.setTitle(" Drop Card ", for: .normal)
         removeAllButton.setTitle(" Remove All ", for: .normal)
         showStackButton.setTitle(" Show Stack ", for: .normal)
+
         
-        drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
-        removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
-        removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
-        showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
+    }
+    
+    func canWeDraw() {
+        if EmojiCard.currentSizeOfDeck < 1 {
+            drawOneButton.layer.borderColor = UIColor.gray.cgColor
+            drawOneButton.isEnabled = false
+        }
+        
+        if EmojiCard.discardPile.count == 0 {
+            removeOneButton.layer.borderColor = UIColor.gray.cgColor
+            removeOneButton.isEnabled = false
+        }
+        
     }
     
     func didPressDrawOneButton(sender: UIButton) {
@@ -127,7 +118,7 @@ class EmojiCardViewController: UIViewController {
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
-
+        
         guard EmojiCard.discardPile.index(of: self.card) != 0  && EmojiCard.discardPile.count != 1 else {
             // from https://iosdevcenters.blogspot.com/2016/03/uialertcontroller-in-swift.html, updated for Swift3
             let alertController = UIAlertController(title: "Hey there, pal!", message: "You can't remove the only card...", preferredStyle: UIAlertControllerStyle.alert)
@@ -177,13 +168,13 @@ class EmojiCardViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             
             print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
-        
+            
         }
         
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
-
+        
         let newVC = EmptyDeckViewController()
         
         navigationController?.viewControllers = [newVC]
@@ -201,7 +192,7 @@ class EmojiCardViewController: UIViewController {
         
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
-    
+        
     }
     
     func didPressShowStackButton(sender: UIButton) {
@@ -225,5 +216,5 @@ class EmojiCardViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
         }
     }
-   
+    
 }

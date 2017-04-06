@@ -107,7 +107,7 @@ class EmojiCard: UIView, PlayingCard {
             middleImage
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let _ = [
+        _ = [
             topNumberLabel,
             topSuitLabel,
             middleImage,
@@ -115,7 +115,7 @@ class EmojiCard: UIView, PlayingCard {
             bottomSuitLabel
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let _ = [
+        _ = [
             // top num
             topNumberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             topNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
@@ -134,6 +134,27 @@ class EmojiCard: UIView, PlayingCard {
             ].map{ $0.isActive = true }
         
         middleImage.fillWith(suit, num)
+        
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 5, height: 5)
+        self.layer.shadowRadius = 20
+        self.layer.shadowOpacity = 1
+    }
+    
+    func tilt() {
+        let leftOrRight: Double
+        let randomTwist: Double
+        let angle: Double
+        
+        if EmojiCard.currentSizeOfDeck % 2 == 0 {
+            leftOrRight = -1.0
+        } else {
+            leftOrRight = 1.0
+        }
+        
+        randomTwist = Double(arc4random_uniform(20))
+        angle = (randomTwist/100) * leftOrRight
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
     }
     
     /*
