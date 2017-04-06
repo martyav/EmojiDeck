@@ -26,9 +26,7 @@ class EmojiCardViewController: UIViewController {
         
         print(EmojiCard.currentSizeOfDeck)
         
-        //MARK: - Card position & style
-        
-        generateUI([layoutCard, card.style, card.tilt, layoutButtons, canWeDraw])
+        generateUI([layoutCard, card.style, card.tilt, layoutButtons, disableButtonsIfDeckIsTooSmall])
         
         drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
@@ -43,7 +41,8 @@ class EmojiCardViewController: UIViewController {
         
         _ = [
             card.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            card.centerYAnchor.constraint(equalTo: view.centerYAnchor)].map { $0.isActive = true }
+            card.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ].map { $0.isActive = true }
     }
     
     func layoutButtons() {
@@ -86,7 +85,7 @@ class EmojiCardViewController: UIViewController {
         
     }
     
-    func canWeDraw() {
+    func disableButtonsIfDeckIsTooSmall() {
         if EmojiCard.currentSizeOfDeck < 1 {
             drawOneButton.layer.borderColor = UIColor.gray.cgColor
             drawOneButton.isEnabled = false
@@ -120,14 +119,7 @@ class EmojiCardViewController: UIViewController {
     func didPressRemoveOneButton(sender: UIButton) {
         
         guard EmojiCard.discardPile.index(of: self.card) != 0  && EmojiCard.discardPile.count != 1 else {
-            // from https://iosdevcenters.blogspot.com/2016/03/uialertcontroller-in-swift.html, updated for Swift3
-            let alertController = UIAlertController(title: "Hey there, pal!", message: "You can't remove the only card...", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-            
+            showAlert(title: "Hey there, pal!", message: "You can't remove the only card...", presentOn: self)
             print("you can't remove the only card")
             return
         }
@@ -160,12 +152,7 @@ class EmojiCardViewController: UIViewController {
             drawOneButton.isEnabled = true
             drawOneButton.layer.borderColor = UIColor.black.cgColor
             
-            let alertController = UIAlertController(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+            showAlert(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", presentOn: self)
             
             print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
             
@@ -185,14 +172,8 @@ class EmojiCardViewController: UIViewController {
         
         EmojiCard.discardPile = []
         
-        let alertController = UIAlertController(title: "Starting fresh!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            print("OK")
-        }
-        
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
-        
+        showAlert(title: "Starting fresh!", message: "", presentOn: self)
+
     }
     
     func didPressShowStackButton(sender: UIButton) {
@@ -207,13 +188,7 @@ class EmojiCardViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         if EmojiCard.currentSizeOfDeck == 0 {
-            let alertController = UIAlertController(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+            showAlert(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", presentOn: self)
         }
     }
     
