@@ -13,6 +13,7 @@ func showAlert(title: String, message: String, presentOn: UIViewController) {
     let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
         print("OK")
     }
+    
     alertController.addAction(okAction)
     presentOn.present(alertController, animated: true, completion: nil)
 }

@@ -21,7 +21,7 @@ class EmptyDeckViewController: UIViewController {
         super.viewDidLoad()
         
         if EmojiCard.cardDeck.count == 0 {
-            EmojiCard.createFreshDeck()
+            createFreshDeck()
         }
         
         view.applyGradient(colors: [.black, UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1), .black], locations: [0.0, 0.5, 1.0])

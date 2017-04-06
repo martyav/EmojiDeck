@@ -157,50 +157,55 @@ class EmojiCard: UIView, PlayingCard {
         self.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
     }
     
-    /*
-     NOTE
-     
-     The below function is a work-around for our inits & our protocol not getting along.
-     Our init does not want any other parameters than the one it already has.
-     But our playingCard protocol must have a suit and a num fed in, or we can't make cards at all.
-     A new init, with suit & num parameters, would need to have a frame argument fed in to satisfy its super. Ugh.
-     So...
-     We give our cards dummy values in suit and num when we initialize them, to satisfy our protocol.
-     Then we individualize the cards when we call this function, so we don't have to mess around with any more inits.
-    */
+}
+
+/*
+ NOTE
+ 
+ The below function is a work-around for our inits & our protocol not getting along.
+ Our init does not want any other parameters than the one it already has.
+ But our playingCard protocol must have a suit and a num fed in, or we can't make cards at all.
+ A new init, with suit & num parameters, would need to have a frame argument fed in to satisfy its super. Ugh.
+ So...
+ We give our cards dummy values in suit and num when we initialize them, to satisfy our protocol.
+ Then we individualize the cards when we call this function, so we don't have to mess around with any more inits.
+ */
+
+
+func makeNewCard(suit: Suit, num: Number) -> EmojiCard {
     
-    static func makeNewCard(suit: Suit, num: Number) -> EmojiCard {
-        let newCard = EmojiCard()
-        
-        newCard.suit = suit
-        newCard.num = num
-        
-        print(newCard.num.cornerLabel(), newCard.suit.symbol())
-        
+    let newCard = EmojiCard()
+    
+    newCard.suit = suit
+    newCard.num = num
+    
+    print(newCard.num.cornerLabel(), newCard.suit.symbol())
+    
+    return newCard
+}
+
+func createFreshDeck() {
+    
+    for possibleSuit in 0...3 {
+        for possibleNumber in 1...10 {
+            let newSuit = Suit(rawValue: possibleSuit)
+            let newNum = Number(rawValue: possibleNumber)
+            let newCard = makeNewCard(suit: newSuit!, num: newNum!)
+            EmojiCard.cardDeck.append(newCard)
+        }
+    }
+}
+
+func drawACard() -> EmojiCard {
+    
+    let randomIndex = Int(arc4random_uniform(UInt32(EmojiCard.cardDeck.count)))
+    let newCard = EmojiCard.cardDeck[randomIndex]
+    
+    if newCard.canBeDrawn {
+        newCard.canBeDrawn = false
+        EmojiCard.discardPile.append(newCard)
         return newCard
-    }
-    
-    static func createFreshDeck() {
-        for possibleSuit in 0...3 {
-            for possibleNumber in 1...10 {
-                let newSuit = Suit(rawValue: possibleSuit)
-                let newNum = Number(rawValue: possibleNumber)
-                let newCard = makeNewCard(suit: newSuit!, num: newNum!)
-                EmojiCard.cardDeck.append(newCard)
-            }
-        }
-    }
-    
-    static func drawACard() -> EmojiCard {
-        let randomIndex = Int(arc4random_uniform(UInt32(cardDeck.count)))
-        let newCard = EmojiCard.cardDeck[randomIndex]
-        
-        if newCard.canBeDrawn {
-            newCard.canBeDrawn = false
-            discardPile.append(newCard)
-            return newCard
-        } else {
-            return drawACard()
-        }
+    } else {
+        return drawACard()
     }
 }

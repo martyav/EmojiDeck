@@ -15,7 +15,7 @@ class EmojiCardViewController: UIViewController {
     var showStackButton: ControlButton!
     var removeAllButton: ControlButton!
     
-    var card = EmojiCard.drawACard()
+    var card = drawACard()
     
     override func viewDidLoad() {
         super.viewDidLoad()

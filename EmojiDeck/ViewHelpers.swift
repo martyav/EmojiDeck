@@ -27,7 +27,6 @@ func generateUI(_ functions: [() -> ()]) {
 }
 
 func enable(buttons: [UIButton:Bool]) {
-    
     for (key, value) in buttons {
         key.isEnabled = value
     }
