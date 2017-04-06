@@ -26,7 +26,9 @@ class EmojiCardViewController: UIViewController {
         
         print(EmojiCard.currentSizeOfDeck)
         
-        generateUI([layoutCard, card.style, card.tilt, layoutButtons, disableButtonsIfDeckIsTooSmall])
+        generateUI([layoutCard, card.style, layoutButtons, styleButtons, disableButtonsIfDeckIsTooSmall])
+        
+        title = "\(card.num.cornerLabel()) of \(card.suit)"
         
         drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
@@ -42,7 +44,7 @@ class EmojiCardViewController: UIViewController {
         _ = [
             card.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             card.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ].map { $0.isActive = true }
+            ].map { $0.isActive = true }
     }
     
     func layoutButtons() {
@@ -77,11 +79,14 @@ class EmojiCardViewController: UIViewController {
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
         ].map{ $0.isActive = true }
         
+    }
+    
+    func styleButtons() {
+        
         drawOneButton.setTitle(" Draw Card ", for: .normal)
         removeOneButton.setTitle(" Drop Card ", for: .normal)
         removeAllButton.setTitle(" Remove All ", for: .normal)
         showStackButton.setTitle(" Show Stack ", for: .normal)
-
         
     }
     
@@ -173,7 +178,7 @@ class EmojiCardViewController: UIViewController {
         EmojiCard.discardPile = []
         
         showAlert(title: "Starting fresh!", message: "", presentOn: self)
-
+        
     }
     
     func didPressShowStackButton(sender: UIButton) {

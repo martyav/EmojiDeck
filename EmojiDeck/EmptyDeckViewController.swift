@@ -86,15 +86,10 @@ class EmptyDeckViewController: UIViewController {
     func styleButtons() {
         
         drawOneButton.setTitle(" Draw Card ", for: .normal)
-        
-        removeOneButton.setTitle(" Drop Card ", for: .disabled)
-        removeOneButton.layer.borderColor = UIColor.gray.cgColor
-        
+        removeOneButton.setTitle(" Drop Card ", for: .normal)
         removeAllButton.setTitle(" Remove All ", for: .normal)
-        removeAllButton.layer.borderColor = UIColor.gray.cgColor
-        
         showStackButton.setTitle(" Show Stack ", for: .normal)
-        showStackButton.layer.borderColor = UIColor.gray.cgColor
+        
     }
     
     func styleEmptyLabel() {
