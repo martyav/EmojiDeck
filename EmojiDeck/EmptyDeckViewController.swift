@@ -46,7 +46,7 @@ class EmptyDeckViewController: UIViewController {
         _ = [
             emptyDeckLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emptyDeckLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            ].map{ $0.isActive = true }
+        ].map{ $0.isActive = true }
     }
     
     func layoutButtons() {
@@ -61,14 +61,14 @@ class EmptyDeckViewController: UIViewController {
             removeOneButton,
             showStackButton,
             removeAllButton
-            ], view: self.view)
+        ], view: self.view)
         
         allowProgrammableConstraints([
             drawOneButton,
             removeOneButton,
             showStackButton,
             removeAllButton
-            ])
+        ])
         
         _ = [
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -79,7 +79,7 @@ class EmptyDeckViewController: UIViewController {
             removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
-            ].map{ $0.isActive = true }
+        ].map{ $0.isActive = true }
         
     }
     

@@ -139,8 +139,7 @@ class EmojiCard: UIView, PlayingCard {
         self.layer.shadowOffset = CGSize(width: 5, height: 5)
         self.layer.shadowRadius = 20
         self.layer.shadowOpacity = 1
-        
-        tilt()
+    
     }
     
     func tilt() {

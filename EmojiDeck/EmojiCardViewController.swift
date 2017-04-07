@@ -29,11 +29,32 @@ class EmojiCardViewController: UIViewController {
         generateUI([layoutCard, card.style, layoutButtons, styleButtons, disableButtonsIfDeckIsTooSmall])
         
         title = "\(card.num.cornerLabel()) of \(card.suit)"
+        self.navigationController?.navigationBar.barTintColor = card.suit.color()
         
         drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
         removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
         showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if EmojiCard.currentSizeOfDeck == 0 {
+            showAlert(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", presentOn: self)
+        }
+        
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: [UIViewKeyframeAnimationOptions.calculationModeCubic], animations:
+            {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/3, animations: {
+                    self.card.center.y = self.view.frame.midY
+                })
+                    
+                UIView.addKeyframe(withRelativeStartTime: 2/3, relativeDuration: 1/3, animations: {
+                    self.card.tilt()
+                })
+            }
+            , completion: nil)
+
     }
     
     func layoutCard() {
@@ -42,9 +63,9 @@ class EmojiCardViewController: UIViewController {
         card.translatesAutoresizingMaskIntoConstraints = false
         
         _ = [
-            card.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            card.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ].map { $0.isActive = true }
+            card.bottomAnchor.constraint(equalTo: view.topAnchor),
+            card.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ].map { $0.isActive = true }
     }
     
     func layoutButtons() {
@@ -91,6 +112,7 @@ class EmojiCardViewController: UIViewController {
     }
     
     func disableButtonsIfDeckIsTooSmall() {
+        
         if EmojiCard.currentSizeOfDeck < 1 {
             drawOneButton.layer.borderColor = UIColor.gray.cgColor
             drawOneButton.isEnabled = false
@@ -141,11 +163,6 @@ class EmojiCardViewController: UIViewController {
             return didPressRemoveOneButton(sender: sender)
         }
         
-        if EmojiCard.discardPile.index(of: self.card) == indexToRemove - 1 {
-            print("you can't remove the top card")
-            return didPressRemoveOneButton(sender: sender)
-        }
-        
         let indexToRemoveFromDiscards = indexToRemove - 1
         let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemoveFromDiscards])
         
@@ -182,19 +199,14 @@ class EmojiCardViewController: UIViewController {
     }
     
     func didPressShowStackButton(sender: UIButton) {
-        print("did press show stack")
+        
         let destination = StackTableViewController()
+        
         if let navVC = self.navigationController {
             print("nav found")
             navVC.pushViewController(destination, animated: true)
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         
-        if EmojiCard.currentSizeOfDeck == 0 {
-            showAlert(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", presentOn: self)
-        }
     }
     
 }
