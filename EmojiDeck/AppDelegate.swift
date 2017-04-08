@@ -12,15 +12,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var splashView: UIView?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        
         let rootVC = EmptyDeckViewController()
         let navController = UINavigationController(rootViewController: rootVC)
         
-        self.window?.rootViewController = navController
-        self.window?.makeKeyAndVisible()
+        if let window = self.window {
+            window.rootViewController = navController
+            navController.navigationBar.barTintColor = .white
+            window.makeKeyAndVisible()
+        }
 
         
         return true

@@ -10,12 +10,12 @@ import UIKit
 
 class EmojiCardViewController: UIViewController {
     
-    var drawOneButton = UIButton(type: UIButtonType.system)
-    var removeOneButton = UIButton(type: UIButtonType.system)
-    var showStackButton = UIButton(type: UIButtonType.system)
-    var removeAllButton = UIButton(type: UIButtonType.system)
+    var drawOneButton: ControlButton!
+    var removeOneButton: ControlButton!
+    var showStackButton: ControlButton!
+    var removeAllButton: ControlButton!
     
-    var card = EmojiCard.drawACard()
+    var card = drawACard()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,98 +24,72 @@ class EmojiCardViewController: UIViewController {
             navigationItem.hidesBackButton = true
         }
         
-        let leftOrRight: Double
-        let randomTwist: Double
-        let angle: Double
-        
-        print("view did load")
         print(EmojiCard.currentSizeOfDeck)
         
-        //MARK: - Card position & style
+        generateUI([layoutCard, card.style, layoutButtons, styleButtons, disableButtonsIfDeckIsTooSmall])
         
-        card.translatesAutoresizingMaskIntoConstraints = false
+        title = "\(card.num.cornerLabel()) of \(card.suit)"
+        self.navigationController?.navigationBar.barTintColor = card.suit.color()
+        
+        drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
+        removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
+        removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
+        showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if EmojiCard.currentSizeOfDeck == 0 {
+            showAlert(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", presentOn: self)
+        }
+        
+        UIView.animateKeyframes(withDuration: 0.5, delay: 0.0, options: [UIViewKeyframeAnimationOptions.calculationModeCubic], animations:
+            {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/3, animations: {
+                    self.card.center.y = self.view.frame.midY
+                })
+                    
+                UIView.addKeyframe(withRelativeStartTime: 2/3, relativeDuration: 1/3, animations: {
+                    self.card.tilt()
+                })
+            }
+            , completion: nil)
+
+    }
+    
+    func layoutCard() {
         self.view.addSubview(card)
         
-        card.style()
+        card.translatesAutoresizingMaskIntoConstraints = false
         
-        card.layer.shadowColor = UIColor.black.cgColor
-        card.layer.shadowOffset = CGSize(width: 5, height: 5)
-        card.layer.shadowRadius = 20
-        card.layer.shadowOpacity = 1
+        _ = [
+            card.bottomAnchor.constraint(equalTo: view.topAnchor),
+            card.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ].map { $0.isActive = true }
+    }
+    
+    func layoutButtons() {
         
-        card.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        card.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        drawOneButton = ControlButton()
+        removeOneButton = ControlButton()
+        removeAllButton = ControlButton()
+        showStackButton = ControlButton()
         
-        // gives card a jaunty tilt
-        if EmojiCard.currentSizeOfDeck % 2 == 0 {
-            leftOrRight = -1.0
-        } else {
-            leftOrRight = 1.0
-        }
+        addToView([
+            drawOneButton,
+            removeOneButton,
+            showStackButton,
+            removeAllButton
+        ], view: self.view)
         
-        randomTwist = Double(arc4random_uniform(20))
-        angle = (randomTwist/100) * leftOrRight
-        card.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+        allowProgrammableConstraints([
+            drawOneButton,
+            removeOneButton,
+            showStackButton,
+            removeAllButton
+        ])
         
-        //MARK: - Button position & style
-        
-        let _ = [
-            self.removeAllButton,
-            self.showStackButton,
-            self.removeOneButton,
-            self.drawOneButton
-            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
-        
-        self.drawOneButton.setTitle(" Draw Card ", for: .normal)
-        self.drawOneButton.setTitleColor(.black, for: .normal)
-        self.drawOneButton.setTitleColor(.gray, for: .disabled)
-        self.drawOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.drawOneButton.layer.borderColor = UIColor.black.cgColor
-        self.drawOneButton.layer.borderWidth = 2
-        self.drawOneButton.layer.cornerRadius = 5
-        self.drawOneButton.backgroundColor = .white
-        
-        if EmojiCard.currentSizeOfDeck < 1 {
-            self.drawOneButton.layer.borderColor = UIColor.gray.cgColor
-            self.drawOneButton.isEnabled = false
-        }
-        
-        self.removeOneButton.setTitle(" Drop Card ", for: .normal)
-        self.removeOneButton.setTitleColor(.black, for: .normal)
-        self.removeOneButton.setTitleColor(.gray, for: .disabled)
-        self.removeOneButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.removeOneButton.layer.borderColor = UIColor.black.cgColor
-        self.removeOneButton.layer.borderWidth = 2
-        self.removeOneButton.layer.cornerRadius = 5
-        self.removeOneButton.backgroundColor = .white
-        
-        if EmojiCard.discardPile.count == 0 {
-            self.removeOneButton.layer.borderColor = UIColor.gray.cgColor
-            self.removeOneButton.isEnabled = false
-        }
-        
-        self.removeAllButton.setTitle(" Remove All ", for: .normal)
-        self.removeAllButton.setTitleColor(.black, for: .normal)
-        self.removeAllButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.removeAllButton.layer.borderColor = UIColor.black.cgColor
-        self.removeAllButton.layer.borderWidth = 2
-        self.removeAllButton.layer.cornerRadius = 5
-        self.removeAllButton.backgroundColor = .white
-        
-        self.showStackButton.setTitle(" Show Stack ", for: .normal)
-        self.showStackButton.setTitleColor(.black, for: .normal)
-        self.showStackButton.titleLabel?.font = UIFont(name: "GillSans", size: 25)
-        self.showStackButton.layer.borderColor = UIColor.black.cgColor
-        self.showStackButton.layer.borderWidth = 2
-        self.showStackButton.layer.cornerRadius = 5
-        self.showStackButton.backgroundColor = .white
-        
-        self.view.addSubview(drawOneButton)
-        self.view.addSubview(removeOneButton)
-        self.view.addSubview(removeAllButton)
-        self.view.addSubview(showStackButton)
-        
-        let _ = [
+        _ = [
             removeOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
             removeOneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             drawOneButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
@@ -124,22 +98,34 @@ class EmojiCardViewController: UIViewController {
             removeAllButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -8),
             showStackButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             showStackButton.bottomAnchor.constraint(equalTo: removeAllButton.bottomAnchor, constant: -48)
-            ].map{ $0.isActive = true }
+        ].map{ $0.isActive = true }
         
-        self.drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
-        self.removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
-        self.removeAllButton.addTarget(self, action: #selector(didPressRemoveAllButton(sender:)), for: .touchUpInside)
-        self.showStackButton.addTarget(self, action: #selector(didPressShowStackButton(sender:)), for: .touchUpInside)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    func styleButtons() {
         
-        print("layout subviews!!!")
+        drawOneButton.setTitle(" Draw Card ", for: .normal)
+        removeOneButton.setTitle(" Drop Card ", for: .normal)
+        removeAllButton.setTitle(" Remove All ", for: .normal)
+        showStackButton.setTitle(" Show Stack ", for: .normal)
+        
+    }
+    
+    func disableButtonsIfDeckIsTooSmall() {
+        
+        if EmojiCard.currentSizeOfDeck < 1 {
+            drawOneButton.layer.borderColor = UIColor.gray.cgColor
+            drawOneButton.isEnabled = false
+        }
+        
+        if EmojiCard.discardPile.count == 0 {
+            removeOneButton.layer.borderColor = UIColor.gray.cgColor
+            removeOneButton.isEnabled = false
+        }
+        
     }
     
     func didPressDrawOneButton(sender: UIButton) {
-        print("Did press draw button.")
         
         let newVC = EmojiCardViewController()
         print("we drew \(newVC.card.num.cornerLabel()) \(newVC.card.suit.symbol())")
@@ -154,19 +140,13 @@ class EmojiCardViewController: UIViewController {
             print("nav found")
             navVC.pushViewController(newVC, animated: true)
         }
+        
     }
     
     func didPressRemoveOneButton(sender: UIButton) {
-        print("did press remove one")
+        
         guard EmojiCard.discardPile.index(of: self.card) != 0  && EmojiCard.discardPile.count != 1 else {
-            // from https://iosdevcenters.blogspot.com/2016/03/uialertcontroller-in-swift.html, updated for Swift3
-            let alertController = UIAlertController(title: "Hey there, pal!", message: "You can't remove the only card...", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-            
+            showAlert(title: "Hey there, pal!", message: "You can't remove the only card...", presentOn: self)
             print("you can't remove the only card")
             return
         }
@@ -183,11 +163,6 @@ class EmojiCardViewController: UIViewController {
             return didPressRemoveOneButton(sender: sender)
         }
         
-        if EmojiCard.discardPile.index(of: self.card) == indexToRemove - 1 {
-            print("you can't remove the top card")
-            return didPressRemoveOneButton(sender: sender)
-        }
-        
         let indexToRemoveFromDiscards = indexToRemove - 1
         let cardToReset = EmojiCard.cardDeck.index(of: EmojiCard.discardPile[indexToRemoveFromDiscards])
         
@@ -199,19 +174,16 @@ class EmojiCardViewController: UIViewController {
             drawOneButton.isEnabled = true
             drawOneButton.layer.borderColor = UIColor.black.cgColor
             
-            let alertController = UIAlertController(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
+            showAlert(title: "We removed", message: "\(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())", presentOn: self)
             
             print("we removed \(EmojiCard.cardDeck[cardToReset!].num.cornerLabel()) \(EmojiCard.cardDeck[cardToReset!].suit.symbol())")
+            
         }
+        
     }
     
     func didPressRemoveAllButton(sender: UIButton) {
-        print("did press remove all")
+        
         let newVC = EmptyDeckViewController()
         
         navigationController?.viewControllers = [newVC]
@@ -222,60 +194,19 @@ class EmojiCardViewController: UIViewController {
         
         EmojiCard.discardPile = []
         
-        let alertController = UIAlertController(title: "Starting fresh!", message: "", preferredStyle: UIAlertControllerStyle.alert)
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-            print("OK")
-        }
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true, completion: nil)
+        showAlert(title: "Starting fresh!", message: "", presentOn: self)
+        
     }
     
     func didPressShowStackButton(sender: UIButton) {
-        print("did press show stack")
+        
         let destination = StackTableViewController()
+        
         if let navVC = self.navigationController {
             print("nav found")
             navVC.pushViewController(destination, animated: true)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print("view will appear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("view did appear")
         
-        if EmojiCard.currentSizeOfDeck == 0 {
-            let alertController = UIAlertController(title: "We've got our 40 cards!", message: "There are no more active cards to draw.", preferredStyle: UIAlertControllerStyle.alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
-                print("OK")
-            }
-            alertController.addAction(okAction)
-            self.present(alertController, animated: true, completion: nil)
-        }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        print("view will disappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        print("view did disappear")
-    }
-    
-    override func viewWillLayoutSubviews() {
-        // Step 1: Find our size.
-        let size = view.bounds.size
-        
-        // Step 2: Decide what design to use, based on our rules.
-        let useWideDesign = size.width > size.height
-        
-        // Step 3: Apply the design to the UI.
-        if useWideDesign {
-            card.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        } else {
-            card.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        }
-    }
 }

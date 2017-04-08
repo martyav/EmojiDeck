@@ -107,7 +107,7 @@ class EmojiCard: UIView, PlayingCard {
             middleImage
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let _ = [
+        _ = [
             topNumberLabel,
             topSuitLabel,
             middleImage,
@@ -115,7 +115,7 @@ class EmojiCard: UIView, PlayingCard {
             bottomSuitLabel
             ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
-        let _ = [
+        _ = [
             // top num
             topNumberLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             topNumberLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
@@ -134,52 +134,80 @@ class EmojiCard: UIView, PlayingCard {
             ].map{ $0.isActive = true }
         
         middleImage.fillWith(suit, num)
+        
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 5, height: 5)
+        self.layer.shadowRadius = 20
+        self.layer.shadowOpacity = 1
+    
     }
     
-    /*
-     NOTE
-     
-     The below function is a work-around for our inits & our protocol not getting along.
-     Our init does not want any other parameters than the one it already has.
-     But our playingCard protocol must have a suit and a num fed in, or we can't make cards at all.
-     A new init, with suit & num parameters, would need to have a frame argument fed in to satisfy its super. Ugh.
-     So...
-     We give our cards dummy values in suit and num when we initialize them, to satisfy our protocol.
-     Then we individualize the cards when we call this function, so we don't have to mess around with any more inits.
-    */
-    
-    static func makeNewCard(suit: Suit, num: Number) -> EmojiCard {
-        let newCard = EmojiCard()
+    func tilt() {
+        let leftOrRight: Double
+        let randomTwist: Double
+        let angle: Double
         
-        newCard.suit = suit
-        newCard.num = num
-        
-        print(newCard.num.cornerLabel(), newCard.suit.symbol())
-        
-        return newCard
-    }
-    
-    static func createFreshDeck() {
-        for possibleSuit in 0...3 {
-            for possibleNumber in 1...10 {
-                let newSuit = Suit(rawValue: possibleSuit)
-                let newNum = Number(rawValue: possibleNumber)
-                let newCard = makeNewCard(suit: newSuit!, num: newNum!)
-                EmojiCard.cardDeck.append(newCard)
-            }
-        }
-    }
-    
-    static func drawACard() -> EmojiCard {
-        let randomIndex = Int(arc4random_uniform(UInt32(cardDeck.count)))
-        let newCard = EmojiCard.cardDeck[randomIndex]
-        
-        if newCard.canBeDrawn {
-            newCard.canBeDrawn = false
-            discardPile.append(newCard)
-            return newCard
+        if EmojiCard.currentSizeOfDeck % 2 == 0 {
+            leftOrRight = -1.0
         } else {
-            return drawACard()
+            leftOrRight = 1.0
         }
+        
+        randomTwist = Double(arc4random_uniform(20))
+        angle = (randomTwist/100) * leftOrRight
+        self.transform = CGAffineTransform(rotationAngle: CGFloat(angle))
+    }
+    
+}
+
+/*
+ NOTE
+ 
+ The below function is a work-around for our inits & our protocol not getting along.
+ Our init does not want any other parameters than the one it already has.
+ But our playingCard protocol must have a suit and a num fed in, or we can't make cards at all.
+ A new init, with suit & num parameters, would need to have a frame argument fed in to satisfy its super. Ugh.
+ So...
+ We give our cards dummy values in suit and num when we initialize them, to satisfy our protocol.
+ Then we individualize the cards when we call this function, so we don't have to mess around with any more inits.
+ */
+
+
+func makeNewCard(suit: Suit, num: Number) -> EmojiCard {
+    
+    let newCard = EmojiCard()
+    
+    newCard.suit = suit
+    newCard.num = num
+    
+    print(newCard.num.cornerLabel(), newCard.suit.symbol())
+    
+    return newCard
+}
+
+func createFreshDeck() {
+    
+    for possibleSuit in 0...3 {
+        for possibleNumber in 1...10 {
+            let newSuit = Suit(rawValue: possibleSuit)
+            let newNum = Number(rawValue: possibleNumber)
+            let newCard = makeNewCard(suit: newSuit!, num: newNum!)
+            
+            EmojiCard.cardDeck.append(newCard)
+        }
+    }
+}
+
+func drawACard() -> EmojiCard {
+    
+    let randomIndex = Int(arc4random_uniform(UInt32(EmojiCard.cardDeck.count)))
+    let newCard = EmojiCard.cardDeck[randomIndex]
+    
+    if newCard.canBeDrawn {
+        newCard.canBeDrawn = false
+        EmojiCard.discardPile.append(newCard)
+        return newCard
+    } else {
+        return drawACard()
     }
 }
