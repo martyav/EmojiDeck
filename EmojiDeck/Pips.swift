@@ -73,7 +73,7 @@ class Pips: UIView {
             label?.isHidden = true
         }
         
-        let _ = [
+        _ = [
             // ** top row
             // one
             topOneLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
@@ -142,70 +142,70 @@ class Pips: UIView {
         
         switch number {
         case .one:
-            midTwoLabel?.isHidden = false
+            midTwoLabel.isHidden = false
         case .two:
-            topOneLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .three:
-            topTwoLabel?.isHidden = false
-            midTwoLabel?.isHidden = false
-            bottomTwoLabel?.isHidden = false
+            topTwoLabel.isHidden = false
+            midTwoLabel.isHidden = false
+            bottomTwoLabel.isHidden = false
         case .four:
-            topOneLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .five:
-            topOneLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            midTwoLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midTwoLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .six:
-            topOneLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            midOneLabel?.isHidden = false
-            midThreeLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midOneLabel.isHidden = false
+            midThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .seven:
-            topOneLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            midOneLabel?.isHidden = false
-            midTwoLabel?.isHidden = false
-            midThreeLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midOneLabel.isHidden = false
+            midTwoLabel.isHidden = false
+            midThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .eight:
-            topOneLabel?.isHidden = false
-            topTwoLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            midOneLabel?.isHidden = false
-            midThreeLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomTwoLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            topTwoLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midOneLabel.isHidden = false
+            midThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomTwoLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .nine:
-            topOneLabel?.isHidden = false
-            topTwoLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            midOneLabel?.isHidden = false
-            midTwoLabel?.isHidden = false
-            midThreeLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomTwoLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
+            topOneLabel.isHidden = false
+            topTwoLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midOneLabel.isHidden = false
+            midTwoLabel.isHidden = false
+            midThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomTwoLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
         case .ten:
-            topOneLabel?.isHidden = false
-            topTwoLabel?.isHidden = false
-            topThreeLabel?.isHidden = false
-            midOneLabel?.isHidden = false
-            midTwoLabel?.isHidden = false
-            midThreeLabel?.isHidden = false
-            bottomOneLabel?.isHidden = false
-            bottomTwoLabel?.isHidden = false
-            bottomThreeLabel?.isHidden = false
-            tenSpot?.isHidden = false
+            topOneLabel.isHidden = false
+            topTwoLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midOneLabel.isHidden = false
+            midTwoLabel.isHidden = false
+            midThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomTwoLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
+            tenSpot.isHidden = false
         }
     }
 }
