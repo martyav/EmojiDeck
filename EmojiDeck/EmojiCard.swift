@@ -47,16 +47,6 @@ class EmojiCard: UIView, PlayingCard {
     var bottomNumberLabel: UILabel!
     var bottomSuitLabel: UILabel!
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        print("you shouldn't be running this if you're doing it programatically")
-    }
-    
     func style() {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,23 +65,23 @@ class EmojiCard: UIView, PlayingCard {
         bottomNumberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         bottomSuitLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         
-        topNumberLabel?.text = num.cornerLabel()
+        topNumberLabel.text = num.cornerLabel()
         topNumberLabel.font = UIFont(name: "Superclarendon-Black", size: 40)
-        topNumberLabel?.textColor = suit.color()
+        topNumberLabel.textColor = suit.color()
         topSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        topSuitLabel?.text = suit.symbol()
-        topSuitLabel?.textColor = suit.color()
+        topSuitLabel.text = suit.symbol()
+        topSuitLabel.textColor = suit.color()
         
-        bottomNumberLabel?.text = num.cornerLabel()
+        bottomNumberLabel.text = num.cornerLabel()
         bottomNumberLabel.font = UIFont(name: "Superclarendon-Black", size: 40)
-        bottomNumberLabel?.textColor = suit.color()
-        bottomSuitLabel?.text = suit.symbol()
+        bottomNumberLabel.textColor = suit.color()
+        bottomSuitLabel.text = suit.symbol()
         bottomSuitLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        bottomSuitLabel?.textColor = suit.color()
+        bottomSuitLabel.textColor = suit.color()
         
         // this bit turns the suit & num upside down -- the units are in radians
-        bottomNumberLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
-        bottomSuitLabel?.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
+        bottomNumberLabel.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
+        bottomSuitLabel.transform = CGAffineTransform(rotationAngle: -CGFloat.pi)
         
         addSubview(topNumberLabel)
         addSubview(topSuitLabel)
