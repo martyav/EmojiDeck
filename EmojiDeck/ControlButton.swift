@@ -19,6 +19,7 @@ class ControlButton: UIButton {
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 5
+        self.clipsToBounds = true
         self.backgroundColor = .white
     }
     

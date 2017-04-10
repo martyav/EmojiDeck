@@ -141,34 +141,35 @@ class Pips: UIView {
         }
         
         switch number {
-        case .one:
+        case .Ace:
             midTwoLabel.isHidden = false
-        case .two:
+            midTwoLabel.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
+        case .Two:
             topOneLabel.isHidden = false
             bottomThreeLabel.isHidden = false
-        case .three:
+        case .Three:
             topTwoLabel.isHidden = false
             midTwoLabel.isHidden = false
             bottomTwoLabel.isHidden = false
-        case .four:
+        case .Four:
             topOneLabel.isHidden = false
             topThreeLabel.isHidden = false
             bottomOneLabel.isHidden = false
             bottomThreeLabel.isHidden = false
-        case .five:
+        case .Five:
             topOneLabel.isHidden = false
             topThreeLabel.isHidden = false
             midTwoLabel.isHidden = false
             bottomOneLabel.isHidden = false
             bottomThreeLabel.isHidden = false
-        case .six:
+        case .Six:
             topOneLabel.isHidden = false
             topThreeLabel.isHidden = false
             midOneLabel.isHidden = false
             midThreeLabel.isHidden = false
             bottomOneLabel.isHidden = false
             bottomThreeLabel.isHidden = false
-        case .seven:
+        case .Seven:
             topOneLabel.isHidden = false
             topThreeLabel.isHidden = false
             midOneLabel.isHidden = false
@@ -176,26 +177,26 @@ class Pips: UIView {
             midThreeLabel.isHidden = false
             bottomOneLabel.isHidden = false
             bottomThreeLabel.isHidden = false
-        case .eight:
-            topOneLabel.isHidden = false
-            topTwoLabel.isHidden = false
-            topThreeLabel.isHidden = false
-            midOneLabel.isHidden = false
-            midThreeLabel.isHidden = false
-            bottomOneLabel.isHidden = false
-            bottomTwoLabel.isHidden = false
-            bottomThreeLabel.isHidden = false
-        case .nine:
+        case .Eight:
             topOneLabel.isHidden = false
             topTwoLabel.isHidden = false
             topThreeLabel.isHidden = false
             midOneLabel.isHidden = false
+            midThreeLabel.isHidden = false
+            bottomOneLabel.isHidden = false
+            bottomTwoLabel.isHidden = false
+            bottomThreeLabel.isHidden = false
+        case .Nine:
+            topOneLabel.isHidden = false
+            topTwoLabel.isHidden = false
+            topThreeLabel.isHidden = false
+            midOneLabel.isHidden = false
             midTwoLabel.isHidden = false
             midThreeLabel.isHidden = false
             bottomOneLabel.isHidden = false
             bottomTwoLabel.isHidden = false
             bottomThreeLabel.isHidden = false
-        case .ten:
+        case .Ten:
             topOneLabel.isHidden = false
             topTwoLabel.isHidden = false
             topThreeLabel.isHidden = false

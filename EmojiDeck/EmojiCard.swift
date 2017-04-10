@@ -14,8 +14,8 @@ protocol PlayingCard {
 }
 
 class EmojiCard: UIView, PlayingCard {
-    var suit: Suit = .Ppl
-    var num: Number = .ten
+    var suit: Suit = .Cats
+    var num: Number = .Ten
     var canBeDrawn: Bool = true
     
     /*

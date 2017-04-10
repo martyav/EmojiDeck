@@ -28,7 +28,8 @@ class EmojiCardViewController: UIViewController {
         
         generateUI([layoutCard, card.style, layoutButtons, styleButtons, disableButtonsIfDeckIsTooSmall])
         
-        title = "\(card.num.cornerLabel()) of \(card.suit)"
+        title = "\(card.num) of \(card.suit)"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
         drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
