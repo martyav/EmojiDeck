@@ -23,7 +23,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let window = self.window {
             window.rootViewController = navController
-            navController.navigationBar.barTintColor = .white
+            navController.navigationBar.isTranslucent = true
+            
+//            splashView = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+//            
+//            window.addSubview(splashView!)
+//                
+//            splashView!.translatesAutoresizingMaskIntoConstraints = false
+//                
+//            _ = [
+//                splashView!.bottomAnchor.constraint(equalTo: window.topAnchor),
+//                splashView!.centerXAnchor.constraint(equalTo: window.centerXAnchor)
+//            ].map { $0.isActive = true }
+//
+//            splashView!.backgroundColor = .blue
+            
+            
             window.makeKeyAndVisible()
         }
 

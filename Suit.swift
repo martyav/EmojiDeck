@@ -9,33 +9,33 @@
 import UIKit
 
 enum Suit: Int {
-    case Ppl
+    case Cool
     case Cats
-    case Vehicles
-    case Gadgets
+    case Poo
+    case Eggplants
     
     func symbol() -> String {
         switch self {
-        case .Ppl:
+        case .Cool:
             return "😎"
         case .Cats:
             return "😼"
-        case .Vehicles:
-            return "🚲"
-        case .Gadgets:
-            return "🔌"
+        case .Eggplants:
+            return "🍆"
+        case .Poo:
+            return "💩"
         }
     }
     
     func color() -> UIColor {
         switch self {
-        case .Ppl:
+        case .Cool:
             return .black
-        case .Vehicles:
-            return UIColor(red:0.18, green:0.70, blue:0.29, alpha:1.0)
-        case .Gadgets:
-            return .orange
         case .Cats:
+            return UIColor(red:0.18, green:0.70, blue:0.29, alpha:1.0)
+        case .Poo:
+            return .orange
+        case .Eggplants:
             return .purple
         }
     }

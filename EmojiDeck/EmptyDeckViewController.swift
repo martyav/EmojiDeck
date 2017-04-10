@@ -119,6 +119,8 @@ class EmptyDeckViewController: UIViewController {
         
         if let navVC = self.navigationController {
             print("nav found")
+            navVC.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Futura-Bold", size: 20)!, NSForegroundColorAttributeName: newVC.card.suit.color()]
+            navVC.navigationBar.tintColor = newVC.card.suit.color()
             navVC.pushViewController(newVC, animated: true)
         }
         

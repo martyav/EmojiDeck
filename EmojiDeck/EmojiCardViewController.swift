@@ -28,8 +28,8 @@ class EmojiCardViewController: UIViewController {
         
         generateUI([layoutCard, card.style, layoutButtons, styleButtons, disableButtonsIfDeckIsTooSmall])
         
-        title = "\(card.num.cornerLabel()) of \(card.suit)"
-        self.navigationController?.navigationBar.barTintColor = card.suit.color()
+        title = "\(card.num) of \(card.suit)"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.plain, target:nil, action:nil)
         
         drawOneButton.addTarget(self, action: #selector(didPressDrawOneButton(sender:)), for: .touchUpInside)
         removeOneButton.addTarget(self, action: #selector(didPressRemoveOneButton(sender:)), for: .touchUpInside)
@@ -138,6 +138,8 @@ class EmojiCardViewController: UIViewController {
         
         if let navVC = self.navigationController {
             print("nav found")
+            navVC.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Futura-Bold", size: 20)!, NSForegroundColorAttributeName: newVC.card.suit.color()]
+            navVC.navigationBar.tintColor = newVC.card.suit.color()
             navVC.pushViewController(newVC, animated: true)
         }
         
