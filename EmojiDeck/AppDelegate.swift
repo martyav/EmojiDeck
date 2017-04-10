@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let window = self.window {
             window.rootViewController = navController
-            navController.navigationBar.barTintColor = .white
+            navController.navigationBar.isTranslucent = true
             window.makeKeyAndVisible()
         }
 
