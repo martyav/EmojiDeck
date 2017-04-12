@@ -26,9 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             navController.navigationBar.isTranslucent = true
             window.makeKeyAndVisible()
             
-            self.splashView = UILabel()
+            splashView = UIView()
+      //      let textLayer = CATextLayer()
+      //      splashView!.layer.addSublayer(textLayer)
             
             window.addSubview(splashView!)
+            
+            splashView!.layer.backgroundColor = UIColor.black.cgColor
             
             splashView!.translatesAutoresizingMaskIntoConstraints = false
             
@@ -36,37 +40,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 splashView!.topAnchor.constraint(equalTo: window.topAnchor),
                 splashView!.widthAnchor.constraint(equalTo: window.widthAnchor),
                 splashView!.heightAnchor.constraint(equalTo: window.heightAnchor),
-                splashView!.centerXAnchor.constraint(equalTo: window.centerXAnchor)
-                ].map { $0.isActive = true }
+                splashView!.leadingAnchor.constraint(equalTo: window.leadingAnchor)
+            ].map { $0.isActive = true }
             
-//            splashView!.font = UIFont(name: "AppleColorEmoji", size: 72)
-//            splashView!.textAlignment = .center
+       //     textLayer.font = UIFont(name: "AppleColorEmoji", size: 72)
+       //     textLayer.alignmentMode = kCAAlignmentCenter
             
-            UIView.animateKeyframes(withDuration: 4, delay: 0, options: UIViewKeyframeAnimationOptions.calculationModeLinear, animations: {
+            UIView.animateKeyframes(withDuration: 4, delay: 0, options: [UIViewKeyframeAnimationOptions.calculationModeLinear], animations: {
                 
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1/4, animations: {
-                    self.splashView!.backgroundColor = .black
-                   // self.splashView!.text = "😎"
-                })
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25) {
+                    self.splashView!.layer.backgroundColor = UIColor.black.cgColor
+         //           textLayer.string = "😎"
+                }
                 
-                UIView.addKeyframe(withRelativeStartTime: 1/4, relativeDuration: 1/4, animations: {
-                    self.splashView!.backgroundColor = .orange
-                  //  self.splashView!.text = "💩"
-                })
+                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
+                    self.splashView!.layer.backgroundColor = UIColor.purple.cgColor
+           //         textLayer.string = "🍆"
+                }
                 
-                UIView.addKeyframe(withRelativeStartTime: 2/4, relativeDuration: 1/4, animations: {
-                    self.splashView!.backgroundColor = UIColor(red:0.18, green:0.70, blue:0.29, alpha:1.0)
-                 //   self.splashView!.text = "😼"
-                })
-                
-                UIView.addKeyframe(withRelativeStartTime: 3/4, relativeDuration: 1/4, animations: {
-                    self.splashView!.backgroundColor = .purple
-                  //  self.splashView!.text = "🍆"
-                })
-            }, completion: nil)
+                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
+                    self.splashView!.layer.backgroundColor = UIColor.orange.cgColor
+             //        textLayer.string = "💩"
+
+                }
+
+                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                    self.splashView!.layer.backgroundColor = UIColor(red:0.18, green:0.70, blue:0.29, alpha:1.0).cgColor
+               //     textLayer.string = "😼"
+
+                }
+            }, completion: { finish in
+                UIView.animate(withDuration: 0.5) {
+                    self.splashView!.alpha = 0
+                }
+            })
             
         }
-        
         
         return true
     }
