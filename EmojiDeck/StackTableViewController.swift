@@ -46,9 +46,10 @@ class StackTableViewController: UITableViewController {
         cell.backgroundColor = thisCard.topNumberLabel.textColor
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         
-        cell.numberAndSuitLabel.text = "\(thisCard.num.rawValue) \(thisCard.suit.symbol())"
+        cell.numberAndSuitLabel.text = "\(thisCard.num) of \(thisCard.suit.symbol())"
         cell.numberAndSuitLabel.textColor = .white
-        cell.numberAndSuitLabel.font = thisCard.topNumberLabel.font
+        cell.numberAndSuitLabel.font = UIFont(name: "Superclarendon-Black", size: 20)
+       // cell.numberAndSuitLabel.font = thisCard.topNumberLabel.font
         cell.numberAndSuitLabel.textAlignment = .justified
         
         return cell

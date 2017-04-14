@@ -89,13 +89,13 @@ class EmojiCard: UIView, PlayingCard {
         addSubview(bottomNumberLabel)
         addSubview(bottomSuitLabel)
         
-        let _ = [
+        _ = [
             topNumberLabel,
             topSuitLabel,
             bottomNumberLabel,
             bottomSuitLabel,
             middleImage
-            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         _ = [
             topNumberLabel,
@@ -103,7 +103,7 @@ class EmojiCard: UIView, PlayingCard {
             middleImage,
             bottomNumberLabel,
             bottomSuitLabel
-            ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
+        ].map { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         _ = [
             // top num
@@ -121,7 +121,7 @@ class EmojiCard: UIView, PlayingCard {
             // bottom suit
             bottomSuitLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             bottomSuitLabel.bottomAnchor.constraint(equalTo: bottomNumberLabel.topAnchor, constant: -8)
-            ].map{ $0.isActive = true }
+        ].map{ $0.isActive = true }
         
         middleImage.fillWith(suit, num)
         
