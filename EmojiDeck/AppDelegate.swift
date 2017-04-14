@@ -12,6 +12,10 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    var card1: EmojiCard?
+    var card2: EmojiCard?
+    var card3: EmojiCard?
+    var card4: EmojiCard?
     var splashView: UIView?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -27,51 +31,120 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window.makeKeyAndVisible()
             
             splashView = UIView()
-      //      let textLayer = CATextLayer()
-      //      splashView!.layer.addSublayer(textLayer)
+            card1 = EmojiCard()
+            card2 = EmojiCard()
+            card3 = EmojiCard()
+            card4 = EmojiCard()
             
             window.addSubview(splashView!)
+            splashView!.addSubview(card1!)
+            splashView!.addSubview(card2!)
+            splashView!.addSubview(card3!)
+            splashView!.addSubview(card4!)
+            
+            card1!.suit = .Cool
+            card1!.num = .Ace
+            
+            card2!.suit = .Eggplants
+            card2!.num = .Ace
+            
+            card3!.suit = .Poo
+            card3!.num = .Ace
+            
+            card4!.suit = .Cats
+            card4!.num = .Ace
+            
+            card1!.alpha = 0
+            card2!.alpha = 0
+            card3!.alpha = 0
+            card4!.alpha = 0
             
             splashView!.layer.backgroundColor = UIColor.black.cgColor
             
-            splashView!.translatesAutoresizingMaskIntoConstraints = false
+            allowProgrammableConstraints([splashView!, card1!, card2!, card3!, card4!])
+            card1!.style()
+            card2!.style()
+            card3!.style()
+            card4!.style()
             
             _ = [
                 splashView!.topAnchor.constraint(equalTo: window.topAnchor),
                 splashView!.widthAnchor.constraint(equalTo: window.widthAnchor),
                 splashView!.heightAnchor.constraint(equalTo: window.heightAnchor),
-                splashView!.leadingAnchor.constraint(equalTo: window.leadingAnchor)
+                splashView!.leadingAnchor.constraint(equalTo: window.leadingAnchor),
+                
+                card1!.centerXAnchor.constraint(equalTo: splashView!.centerXAnchor),
+                card1!.centerYAnchor.constraint(equalTo: splashView!.centerYAnchor),
+                
+                card2!.centerXAnchor.constraint(equalTo: splashView!.centerXAnchor, constant: 0),
+                card2!.centerYAnchor.constraint(equalTo: splashView!.centerYAnchor),
+                
+                card3!.centerXAnchor.constraint(equalTo: splashView!.centerXAnchor, constant: 0),
+                card3!.centerYAnchor.constraint(equalTo: splashView!.centerYAnchor),
+                
+                card4!.centerXAnchor.constraint(equalTo: splashView!.centerXAnchor, constant: 0),
+                card4!.centerYAnchor.constraint(equalTo: splashView!.centerYAnchor)
             ].map { $0.isActive = true }
             
-       //     textLayer.font = UIFont(name: "AppleColorEmoji", size: 72)
-       //     textLayer.alignmentMode = kCAAlignmentCenter
-            
-            UIView.animateKeyframes(withDuration: 4, delay: 0, options: [UIViewKeyframeAnimationOptions.calculationModeLinear], animations: {
+            UIView.animateKeyframes(withDuration: 5, delay: 0, options: [UIViewKeyframeAnimationOptions.calculationModeLinear], animations: {
                 
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25) {
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.20) {
                     self.splashView!.layer.backgroundColor = UIColor.black.cgColor
-         //           textLayer.string = "😎"
+                    
+                    self.card1!.alpha = 1
+                    
+                    self.card1!.center.y = window.frame.midY
+                    self.card1!.center.x = window.frame.midX
+                    
+                    self.card1!.tilt()
                 }
                 
-                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
+                UIView.addKeyframe(withRelativeStartTime: 0.20, relativeDuration: 0.20) {
                     self.splashView!.layer.backgroundColor = UIColor.purple.cgColor
-           //         textLayer.string = "🍆"
+                    
+                    self.card2!.alpha = 1
+                    
+                    self.card2!.center.y = window.frame.midY
+                    self.card2!.center.x = window.frame.midX
+                    
+                    self.card2!.tilt()
                 }
                 
-                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
+                UIView.addKeyframe(withRelativeStartTime: 0.40, relativeDuration: 0.20) {
                     self.splashView!.layer.backgroundColor = UIColor.orange.cgColor
-             //        textLayer.string = "💩"
-
+                    
+                    self.card3!.alpha = 1
+                    
+                    self.card3!.center.y = window.frame.midY
+                    self.card3!.center.x = window.frame.midX
+                    
+                    self.card3!.tilt()
                 }
 
-                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                UIView.addKeyframe(withRelativeStartTime: 0.60, relativeDuration: 0.20) {
                     self.splashView!.layer.backgroundColor = UIColor(red:0.18, green:0.70, blue:0.29, alpha:1.0).cgColor
-               //     textLayer.string = "😼"
-
+                    
+                    self.card4!.alpha = 1
+                    
+                    self.card4!.center.y = window.frame.midY
+                    self.card4!.center.x = window.frame.midX
+                    
+                    self.card4!.tilt()
                 }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.80, relativeDuration: 0.20) {
+                    self.card1!.center.x = window.frame.midX - 40
+                    self.card2!.center.x = window.frame.midX - 20
+                    self.card3!.center.x = window.frame.midX
+                    self.card4!.center.x = window.frame.midX + 20
+                    
+                    self.card4!.tilt()
+                    
+                }
+                
             }, completion: { finish in
-                UIView.animate(withDuration: 0.5) {
-                    self.splashView!.alpha = 0
+                UIView.animate(withDuration: 1) {
+                    self.splashView!.transform = CGAffineTransform(translationX: 0, y: -window.frame.maxY)
                 }
             })
             
